@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <style>
+        #tagsList{
+            width:400px;
+            height:300px;
+            top: 33%;
+        }
+        #tagsList a{
+            position:absolute;
+            top:0;
+            left:0;
+            font-weight:bold;
+            text-decoration:none;
+            padding: 3px 6px;
+        }
+    </style>
+</head>
+<body>
+    <span style="font-size: 16px;">tagcloud</span>
+    <div id="tagsList">
+        <a>啦啦啦</a>
+        <a>啦啦</a>
+        <a>啦啦啦</a>
+        <a>啦啦</a>
+        <a>啦啦啦</a>
+        <a>啦啦</a>
+        <a>啦啦啦</a>
+    </div>
+<script src="../tagcloud.js"></script>
+<script>
+    tagcloud({
+        id: "tagsList"
+    });
+</script>
+</body>
+</html>
