@@ -83,9 +83,9 @@
                     item.element = element[i-1];
                     item.offsetWidth = item.element.offsetWidth;
                     item.offsetHeight = item.element.offsetHeight;
-                    item.cx = o.radius * Math.cos(item.angle.theta) * Math.sin(item.angle.phi);
-                    item.cy = o.radius * Math.sin(item.angle.theta) * Math.sin(item.angle.phi);
-                    item.cz = o.radius * Math.cos(item.angle.phi);
+                    item.x = o.radius * Math.cos(item.angle.theta) * Math.sin(item.angle.phi);
+                    item.y = o.radius * Math.sin(item.angle.theta) * Math.sin(item.angle.phi);
+                    item.z = o.radius * Math.cos(item.angle.phi);
                     item.element.style.left = item.x + (o.box.offsetWidth - item.offsetWidth) / 2 + "px";
                     item.element.style.top = item.y + (o.box.offsetHeight - item.offsetHeight) / 2 + "px";
                     items.push(item);
@@ -107,6 +107,10 @@
         },
         begin: function() {
             var o = this;
+            o.box.className = "tagcloud";
+            o.box.style.position = "relative";
+            o.box.style.height = 100 + "%";
+            o.box.style.width = 100 + "%";
             //鼠标移入
             o.box.onmouseover = function() {
                 o.active = true;
@@ -126,11 +130,12 @@
             o.up = setInterval(function() {
                 o.update(o);
             }, 30);
+            o.box.style.visibility = "visible";
+            o.box.style.display = "block";
         },
         update: function() {
             var o = this;
             var a, b;
-            o.box.style.position = "relative";
             if(!o.active && !o.keep) {
                 o.mouseX = Math.abs(o.mouseX - o.mouseX0) < 1 ? o.mouseX0 : (o.mouseX + o.mouseX0) / 2;   //重置鼠标与滚动圆心x轴距离
                 o.mouseY = Math.abs(o.mouseY - o.mouseY0) < 1 ? o.mouseY0 : (o.mouseY + o.mouseY0) / 2;   //重置鼠标与滚动圆心y轴距离
@@ -142,7 +147,7 @@
             }
             o.lasta = a;
             o.lastb = b;
-            var po = (function(a, b) {
+            var sc = (function(a, b) {
                 var l = Math.PI / 180;
                 //数组顺序0,1,2,3表示asin,acos,bsin,bcos
                 return [
@@ -153,24 +158,24 @@
                 ];
             })(a, b);
             for(var j = 0; j < o.items.length; j++) {
-                var rx1 = o.items[j].cx,
-                    ry1 = o.items[j].cy*po[1] + o.items[j].cz*(-po[0]),
-                    rz1 = o.items[j].cy*po[0] + o.items[j].cz*po[1];
-                var rx2 = rx1 * po[3] + rz1 * po[2],
+                var rx1 = o.items[j].x,
+                    ry1 = o.items[j].y*sc[1] + o.items[j].z*(-sc[0]),
+                    rz1 = o.items[j].y*sc[0] + o.items[j].z*sc[1];
+                var rx2 = rx1 * sc[3] + rz1 * sc[2],
                     ry2 = ry1,
-                    rz2 = rz1 * po[3] - rx1 * po[2];
+                    rz2 = rz1 * sc[3] - rx1 * sc[2];
                 var per = o.depth / (o.depth + rz2);
 
-                o.items[j].cx = rx2;
-                o.items[j].cy = ry2;
-                o.items[j].cz = rz2;
+                o.items[j].x = rx2;
+                o.items[j].y = ry2;
+                o.items[j].z = rz2;
                 o.items[j].scale = per; //取值范围0.6 ~ 3
                 o.items[j].fontsize = Math.ceil(per * 3) + o.fontsize - 6;
                 o.items[j].alpha = 0.7 * per > 1 ? 1 : 0.7 * per;
 
                 o.items[j].element.style.position = "absolute";
-                o.items[j].element.style.left = o.items[j].cx + (o.box.offsetWidth - o.items[j].offsetWidth) / 2 + "px";
-                o.items[j].element.style.top = o.items[j].cy + (o.box.offsetHeight - o.items[j].offsetHeight) / 2 + "px";
+                o.items[j].element.style.left = o.items[j].x + (o.box.offsetWidth - o.items[j].offsetWidth) / 2 + "px";
+                o.items[j].element.style.top = o.items[j].y + (o.box.offsetHeight - o.items[j].offsetHeight) / 2 + "px";
                 o.items[j].element.style.fontSize = o.items[j].fontsize + "px";
                 o.items[j].element.style.filter = "alpha(opacity=" + 100 * o.items[j].alpha + ")";
                 o.items[j].element.style.opacity = o.items[j].alpha;

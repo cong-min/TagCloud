@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
+    <link rel="stylesheet" href="tagcloud.css">
     <style>
-        #tagsList{
+        .box{
             width:400px;
             height:300px;
-            top: 33%;
         }
         #tagsList a{
             position:absolute;
@@ -21,19 +21,21 @@
 </head>
 <body>
     <span style="font-size: 16px;">tagcloud</span>
-    <div id="tagsList">
-        <a>啦啦啦</a>
-        <a>啦啦</a>
-        <a>啦啦啦</a>
-        <a>啦啦</a>
-        <a>啦啦啦</a>
-        <a>啦啦</a>
-        <a>啦啦啦</a>
+    <div class="box">
+        <div id="tagcloud">
+            <a href="#1">啦啦啦</a>
+            <a href="#2">啦啦</a>
+            <a href="#3">啦啦啦</a>
+            <a href="#4">啦啦</a>
+            <a href="#5">啦啦啦</a>
+            <a href="#6">啦啦</a>
+            <a href="#7">啦啦啦</a>
+        </div>
     </div>
-<script src="../tagcloud.js"></script>
+<script src="tagcloud.js"></script>
 <script>
     tagcloud({
-        id: "tagsList"
+        id: "tagcloud"
     });
 </script>
 </body>
