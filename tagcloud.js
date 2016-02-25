@@ -13,8 +13,7 @@
             var o = this;
             o.config = (function(args) {
                 var config = {      //默认值
-                    id: "tagcloud",     //组件id
-                    fontsize: 16,       //平均字体大小, 单位px
+                    fontsize: 16,       //基本字体大小, 单位px
                     radius: 60,         //滚动半径, 单位px
                     mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
                     ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
@@ -22,8 +21,8 @@
                     keep: true          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
                 };
                 if(args && args.length > 0) {
-                    var options = args[0];
-                    var getType = Object.prototype.toString;
+                    var options = args[0],
+                        getType = Object.prototype.toString;
                     if(options && getType.call(options) == "[object Object]") {
                         for(var i in options) {
                             if(options.hasOwnProperty(i)) {
@@ -34,7 +33,7 @@
                 }
                 return config;  //配置参数
             })(Array.prototype.slice.call(arguments));
-            o.box = document.getElementById(o.config.id);   //组件元素
+            o.box = o.config.element;   //组件元素
             o.fontsize = o.config.fontsize; //平均字体大小
             o.radius = o.config.radius; //滚动半径
             o.depth = 1.5 * o.radius;   //滚动深度
@@ -74,13 +73,13 @@
                     }
                     return child;
                 })(o.box);
-                var max = element.length + 1;
-                for(var i = 1; i < max; i++) {
+                var length = element.length;
+                for(var i = 0; i < length; i++) {
                     var item = {};
                     item.angle = {};
-                    item.angle.phi = Math.acos(-1 + (2 * i - 1) / max);
-                    item.angle.theta = Math.sqrt(max * Math.PI) * item.angle.phi;
-                    item.element = element[i-1];
+                    item.angle.phi = Math.acos(-1 + (2 * i + 1) / length);
+                    item.angle.theta = Math.sqrt((length + 1) * Math.PI) * item.angle.phi;
+                    item.element = element[i];
                     item.offsetWidth = item.element.offsetWidth;
                     item.offsetHeight = item.element.offsetHeight;
                     item.x = o.radius * Math.cos(item.angle.theta) * Math.sin(item.angle.phi);
@@ -103,14 +102,10 @@
             o.mouseX = o.mouseX0;   //鼠标与滚动圆心x轴距离
             o.mouseY = o.mouseY0;   //鼠标与滚动圆心y轴距离
             //开始
-            o.begin();
+            o.ready();
         },
-        begin: function() {
+        ready: function() {
             var o = this;
-            o.box.className = "tagcloud";
-            o.box.style.position = "relative";
-            o.box.style.height = 100 + "%";
-            o.box.style.width = 100 + "%";
             //鼠标移入
             o.box.onmouseover = function() {
                 o.active = true;
@@ -123,25 +118,35 @@
             var area = o.keep ? win : o.box;
             area.onmousemove = function(ev) {
                 var oEvent = window.event || ev;
-                o.mouseX = (oEvent.clientX - (o.box.offsetLeft + o.box.offsetWidth / 2)) / 5;
-                o.mouseY = (oEvent.clientY - (o.box.offsetTop + o.box.offsetHeight / 2)) / 5;
+                var boxPosition = o.box.getBoundingClientRect();
+                o.mouseX = (oEvent.clientX - (boxPosition.left + o.box.offsetWidth / 2)) / 5;
+                o.mouseY = (oEvent.clientY - (boxPosition.top + o.box.offsetHeight / 2)) / 5;
             };
+            o.begin();
+        },
+        begin: function() {
+            var o = this;
             //定时更新
+            o.update(o);    //初始更新
+            o.box.style.visibility = "visible";
+            o.box.style.position = "relative";
+            for(var j = 0; j < o.items.length; j++) {
+                o.items[j].element.style.position = "absolute";
+            }
             o.up = setInterval(function() {
                 o.update(o);
             }, 30);
-            o.box.style.visibility = "visible";
-            o.box.style.display = "block";
         },
         update: function() {
-            var o = this;
-            var a, b;
+            var o = this,
+                a, b;
             if(!o.active && !o.keep) {
                 o.mouseX = Math.abs(o.mouseX - o.mouseX0) < 1 ? o.mouseX0 : (o.mouseX + o.mouseX0) / 2;   //重置鼠标与滚动圆心x轴距离
                 o.mouseY = Math.abs(o.mouseY - o.mouseY0) < 1 ? o.mouseY0 : (o.mouseY + o.mouseY0) / 2;   //重置鼠标与滚动圆心y轴距离
             }
             a = -(Math.min(Math.max(-o.mouseY, -o.size), o.size) / o.radius ) * o.mspeed;
             b = (Math.min(Math.max(-o.mouseX, -o.size), o.size) / o.radius ) * o.mspeed;
+
             if(Math.abs(a) <= 0.01 && Math.abs(b) <= 0.01) {
                 return;
             }
@@ -171,9 +176,8 @@
                 o.items[j].z = rz2;
                 o.items[j].scale = per; //取值范围0.6 ~ 3
                 o.items[j].fontsize = Math.ceil(per * 3) + o.fontsize - 6;
-                o.items[j].alpha = 0.7 * per > 1 ? 1 : 0.7 * per;
+                o.items[j].alpha = 1.2 * per - 0.3;
 
-                o.items[j].element.style.position = "absolute";
                 o.items[j].element.style.left = o.items[j].x + (o.box.offsetWidth - o.items[j].offsetWidth) / 2 + "px";
                 o.items[j].element.style.top = o.items[j].y + (o.box.offsetHeight - o.items[j].offsetHeight) / 2 + "px";
                 o.items[j].element.style.fontSize = o.items[j].fontsize + "px";
@@ -183,6 +187,12 @@
         }
     };
     win.tagcloud = function(options) {
-        new tagcloud(options);
+        var args = !options ? {} : options,
+            className = "tagcloud", //默认classtagcloud
+            element = document.getElementsByClassName(className);
+        for(var i = 0; i < element.length; i++) {
+            args.element = element[i];
+            new tagcloud(args);
+        }
     };
 })(window);

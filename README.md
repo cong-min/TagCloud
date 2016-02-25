@@ -1,9 +1,9 @@
-tagcloud
-========
-tagcloud是一个由JavaScript写成的3d标签云.
+tagcloud  v1.0.0
+================
+tagcloud是一个由JavaScript写成的3d标签云. (no jquery and only 4kb)
 
-主页: http://tagcloud.congm.in (待上线)
+demo: http://tagcloud.congm.in/demo
 
-demo1: https://congm.in
+example1: https://congm.in
 
-demo2: https://cqupt.congm.in
+example2: https://cqupt.congm.in

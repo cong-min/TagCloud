@@ -2,41 +2,70 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Demo</title>
-    <link rel="stylesheet" href="tagcloud.css">
+    <title>tagcloud - Demo</title>
+    <link rel="stylesheet" href="tagcloud.css"> <!-- css -->
     <style>
-        .box{
-            width:400px;
-            height:300px;
+        body{
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-        #tagsList a{
-            position:absolute;
-            top:0;
-            left:0;
-            font-weight:bold;
-            text-decoration:none;
-            padding: 3px 6px;
+        #light{
+            background: #666;
+            color: #fff;
+        }
+        .box{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            margin-left: -200px;
+            margin-top: -300px;
         }
     </style>
 </head>
 <body>
-    <span style="font-size: 16px;">tagcloud</span>
+    <h1>tagcloud <small>v1.0.0</small></h1>
+    <!-- 主题样式切换 -->
+    <ul>
+        <li><a href="#" onclick="toDefault()">default</a></li>
+        <li><a href="#" onclick="toLight()">light</a></li>
+    </ul>
     <div class="box">
-        <div id="tagcloud">
-            <a href="#1">啦啦啦</a>
-            <a href="#2">啦啦</a>
-            <a href="#3">啦啦啦</a>
-            <a href="#4">啦啦</a>
-            <a href="#5">啦啦啦</a>
-            <a href="#6">啦啦</a>
-            <a href="#7">啦啦啦</a>
+        <!-- begin -->
+        <div class="tagcloud">  <!-- class="tagcloud" - 用途js.css -->
+            <a href="#">啦啦啦</a>    <!-- a标签 - 用途css -->
+            <a href="#">啦啦</a>
+            <a href="#">啦啦啦</a>
+            <a href="#">啦啦</a>
+            <a href="#">啦啦啦</a>
+            <a href="#">啦啦</a>
+            <a href="#">啦啦啦</a>
         </div>
+        <!-- end -->
     </div>
-<script src="tagcloud.js"></script>
+<script src="tagcloud.js"></script> <!-- js -->
 <script>
-    tagcloud({
-        id: "tagcloud"
-    });
+    /* 参数列表
+     {   参数名: 默认值
+     fontsize: 16,       //基本字体大小, 单位px
+     radius: 60,         //滚动半径, 单位px
+     mspeed: "normal",   //滚动最大速度, 取值: slow, normal(默认), fast
+     ispeed: "normal",   //滚动初速度, 取值: slow, normal(默认), fast
+     direction: 135,     //初始滚动方向, 取值角度(顺时针360): 0对应top, 90对应left, 135对应right-bottom(默认)...
+     keep: true          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+     }
+     */
+    tagcloud(); //调用js
+
+    //样式切换
+    function toDefault(){
+        document.body.id = "";
+        document.getElementsByClassName("tagcloud")[0].className = "tagcloud";
+    }
+    function toLight(){
+        document.body.id = "light";
+        document.getElementsByClassName("tagcloud")[0].className = "tagcloud tagcloud-light";
+    }
 </script>
 </body>
 </html>
