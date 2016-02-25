@@ -32,5 +32,6 @@
     color: #fff;
 }
 .tagcloud.tagcloud-light > a:hover {
+    background-color: rgba(255, 255, 255, .1);
     border: 1px solid #fff;
 }
