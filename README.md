@@ -57,7 +57,7 @@ tagcloud
 </script>
 ```
 * Run it, and have fun!
-  * demo效果
+  * 默认样式[demo效果](http://tagcloud.congm.in)
 
 ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud2.png)
 
@@ -67,7 +67,7 @@ tagcloud
 * 两种样式（背景皆为透明）
   * 默认样式（黑色字体）如上，外层元素设置为`class="tagcloud"`
   * light样式（白色字体），外层元素设置为`class="tagcloud tagcloud-light"`
-    * light样式demo效果
+    * light样式[demo效果](http://tagcloud.congm.in)
 
   ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud1.png)
 
@@ -94,32 +94,32 @@ tagcloud
 </script>
 ```
 ### 参数列表
-* #### fontsize
+* `fontsize`
   * 基本字体大小
   * 取值(number数值): 单位px
-  * 默认值：16
-* #### radius
+  * 默认值：`16`
+* `radius`
   * 滚动半径
   * 取值(number数值): 单位px
-  * 默认值：60
-* #### mspeed
+  * 默认值：`60`
+* `mspeed`
   * 滚动最大速度
-  * 取值(string字符串): slow, normal, fast
-  * 默认值：normal
-* #### ispeed
+  * 取值(string字符串): `slow`, `normal`, `fast`
+  * 默认值：`normal`
+* `ispeed`
   * 滚动初速度
-  * 取值(string字符串): slow, normal, fast
-  * 默认值：normal
-* #### direction
+  * 取值(string字符串): `slow`, `normal`, `fast`
+  * 默认值：`normal`
+* `direction`
   * 初始滚动方向
   * 取值(number数值): 单位角度(顺时针360度)
-    * 如: 0对应top, 90对应left, 135对应right-bottom...
-  * 默认值：135
-* #### keep
+    * 如: `0`对应top, `90`对应left, `135`对应right-bottom...
+  * 默认值：`135`
+* `keep`
   * 鼠标移出组件后是否继续随鼠标滚动
-  * 取值(boolean布尔值): true, false
-    * true 表示移出后依旧随鼠标滚动, false 表示移出后减速至初速度滚动
-  * 默认值：true
+  * 取值(boolean布尔值): `true`, `false`
+    * `true` 表示移出后依旧随鼠标滚动, `false` 表示移出后减速至初速度滚动
+  * 默认值：`true`
 
 ## MIT License
-### tagcloud @Cong Min
+#### tagcloud @Cong Min
