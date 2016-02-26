@@ -58,13 +58,17 @@ tagcloud
 ```
 * Run it, and have fun!
   * demo效果
+
 ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud2.png)
+
 #### * 4、More
 * 两种样式（背景皆为透明）
   * 默认样式（黑色字体）如上，外层元素设置为`class="tagcloud"`
   * light样式（白色字体），外层元素设置为`class="tagcloud tagcloud-light"`
     * light样式demo效果
+
   ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud1.png)
+
 * 更多参数设置`options`
 ```
 <script type="text/javascript">
