@@ -19,11 +19,11 @@ tagcloud
  ├─ README.md         //说明文档
  ├─ demo.html         //demo页面
  ├─ tagcloud.css      //css style (<1kb)
- ├─ tagcloud.js       //js (<8kb)
+ ├─ tagcloud.js       //js (<9kb)
  └─ tagcloud.min.js   //min.js (<4kb)
 ```
 
-#### 1、Download，下载
+#### 1、Download，[下载](https://github.com/mcc108/tagcloud/archive/master.zip)
 * 下载`tagcloud.css`文件
 * 下载`tagcloud.min.js`文件
 
