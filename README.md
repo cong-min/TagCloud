@@ -61,6 +61,8 @@ tagcloud
 
 ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud2.png)
 
+---
+
 #### * 4、More
 * 两种样式（背景皆为透明）
   * 默认样式（黑色字体）如上，外层元素设置为`class="tagcloud"`
