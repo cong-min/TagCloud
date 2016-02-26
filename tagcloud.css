@@ -1,5 +1,5 @@
 /**
- * tagcloud v1.0.0 - http://tagcloud.congm.in
+ * tagcloud v1.0.1 - http://tagcloud.congm.in
  * Copyright 2016 @ Cong Min, Inc.
  *
  * MIT License - https://github.com/mcc108/tagcloud
@@ -26,7 +26,6 @@
     color: #333;
 }
 .tagcloud > a:hover {
-    z-index: 2;
     background-color: rgba(180, 180, 180, .15);
     border: 1px solid #666;
     -webkit-border-radius: 2px;

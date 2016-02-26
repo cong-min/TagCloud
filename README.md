@@ -1,4 +1,4 @@
-tagcloud  v1.0.0
+tagcloud  v1.0.1
 ================
 tagcloud是一个由JavaScript写成的3d标签云. (no jquery and only 4kb)
 
