@@ -23,7 +23,7 @@ tagcloud
  └─ tagcloud.min.js   //min.js (<4kb)
 ```
 
-#### 1、Download，[下载](https://github.com/mcc108/tagcloud/archive/master.zip)
+#### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
 * 下载`tagcloud.css`文件
 * 下载`tagcloud.min.js`文件
 
