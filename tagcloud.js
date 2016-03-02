@@ -177,7 +177,7 @@
                 o.items[j].z = rz2;
                 o.items[j].scale = per; //取值范围0.6 ~ 3
                 o.items[j].fontsize = Math.ceil(per * 3) + o.fontsize - 6;
-                o.items[j].alpha = 1.2 * per - 0.3;
+                o.items[j].alpha = 1.5 * per - 0.5;
 
                 o.items[j].element.style.left = o.items[j].x + (o.box.offsetWidth - o.items[j].offsetWidth) / 2 + "px";
                 o.items[j].element.style.top = o.items[j].y + (o.box.offsetHeight - o.items[j].offsetHeight) / 2 + "px";
