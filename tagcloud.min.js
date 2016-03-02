@@ -1,5 +1,5 @@
 /**
- * tagcloud v1.0.1 - http://tagcloud.congm.in
+ * tagcloud v1.0.2 - http://tagcloud.congm.in
  * Copyright 2016 @ Cong Min, Inc.
  *
  * MIT License - https://github.com/mcc108/tagcloud
