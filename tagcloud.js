@@ -1,5 +1,5 @@
 /**
- * tagcloud v1.0.2 - http://tagcloud.congm.in
+ * tagcloud v1.0.3 - http://tagcloud.congm.in
  * Copyright 2016 @ Cong Min, Inc.
  *
  * MIT License - https://github.com/mcc108/tagcloud
@@ -130,6 +130,8 @@
             o.update(o);    //初始更新
             o.box.style.visibility = "visible";
             o.box.style.position = "relative";
+            o.box.style.minHeight = 2 * o.size + "px";
+            o.box.style.minWidth = 2 * o.size + "px";
             for(var j = 0; j < o.items.length; j++) {
                 o.items[j].element.style.position = "absolute";
                 o.items[j].element.style.zIndex = j + 1;

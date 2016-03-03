@@ -1,4 +1,4 @@
-tagcloud  [v1.0.2](https://github.com/mcc108/tagcloud/releases)
+tagcloud  [v1.0.3](https://github.com/mcc108/tagcloud/releases)
 ================
 tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
 
@@ -50,7 +50,15 @@ tagcloud
   <a href="#">text</a>
 </div>
 ```
-* JS，将该代码插入至`</body>`前
+* 将上述class为`tagcloud`的元素放入固定了`height`和`width`的你自己创建的元素中，如: `创建一个height和width都为400px的div`
+```
+<div style="height: 400px; width: 400px;">
+  <div class="tagcloud">
+    ...
+  </div>
+</div>
+```
+* JS，最后将该代码插入至`</body>`前
 ```
 <script type="text/javascript">
   tagcloud();
