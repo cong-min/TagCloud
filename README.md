@@ -32,41 +32,41 @@ tagcloud
 
 #### 2、Include，在HTML中加载这两个文件
 * 根据你的路径将`tagcloud.css`文件插入至`</head>`前
-  ```
-  <link rel="stylesheet" href="tagcloud.css">
-  ```
+```
+<link rel="stylesheet" href="tagcloud.css">
+```
 * 根据你的路径将`tagcloud.min.js`文件插入至`</head>`前或`</body>`前
-  ```
-  <script src="tagcloud.min.js"></script>
-  ```
+```
+<script src="tagcloud.min.js"></script>
+```
 
 #### 3、Build
 * HTML，将数量不限的tag放入`a标签`内，并放入至class为`tagcloud`元素中
-  ```
-  <div class="tagcloud">
-  <a href="#">text</a>
-  <a href="#">text</a>
-  <a href="#">text</a>
-  <a href="#">text</a>
-  <a href="#">text</a>
-  <a href="#">text</a>
-  <a href="#">text</a>
-  </div>
-  ```
+```
+<div class="tagcloud">
+<a href="#">text</a>
+<a href="#">text</a>
+<a href="#">text</a>
+<a href="#">text</a>
+<a href="#">text</a>
+<a href="#">text</a>
+<a href="#">text</a>
+</div>
+```
 * 将上述class为`tagcloud`的元素放入固定了`height`和`width`的你自己创建的元素中，如: `创建一个height和width都为400px的div`
-  ```
-  <div style="height: 400px; width: 400px;">
-  <div class="tagcloud">
-    ...
-  </div>
-  </div>
-  ```
+```
+<div style="height: 400px; width: 400px;">
+<div class="tagcloud">
+  ...
+</div>
+</div>
+```
 * JS，最后将该代码插入至`</body>`前
-  ```
-  <script type="text/javascript">
-  tagcloud();
-  </script>
-  ```
+```
+<script type="text/javascript">
+tagcloud();
+</script>
+```
 * Run it, and have fun!
   * 默认样式[demo效果](http://tagcloud.congm.in)
 
@@ -83,11 +83,11 @@ tagcloud
   ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud1.png)
 
 * 更多参数设置`options`
-  ```
-  <script type="text/javascript">
-  tagcloud(options);
-  </script>
-  ```
+```
+<script type="text/javascript">
+tagcloud(options);
+</script>
+```
 
 ## Options参数:
 ### 默认参数例子
