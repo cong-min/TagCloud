@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-    <h1><a href="http://github.com/mcc108/tagcloud">tagcloud <small>v1.0.3</small></a></h1>
+    <h1><a href="http://github.com/mcc108/tagcloud">tagcloud</a></h1>
     <!-- 主题样式切换 -->
     <ul>
         <li><a href="#" onclick="toDefault()">default</a></li>
@@ -55,8 +55,9 @@
          keep: true          //鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
      }
      */
-    tagcloud(); //调用js
-
+    var tc = tagcloud(); //调用js
+    console.log(tc);
+    
     //样式切换
     function toDefault(){
         document.body.id = "";

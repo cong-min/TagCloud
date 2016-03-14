@@ -1,5 +1,9 @@
-tagcloud  [v1.0.3](https://github.com/mcc108/tagcloud/releases)
+tagcloud 
 ================
+####forked from mcc108/tagcloud && js modified by Ling.
+
+
+
 tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
 
 demo: http://tagcloud.congm.in
@@ -23,24 +27,24 @@ tagcloud
  └─ tagcloud.min.js   //min.js (<4kb)
 ```
 
-#### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
+#### 1、Download，[下载](https://github.com/wssgcg1213/tagcloud/releases)
 * 下载`tagcloud.css`文件
 * 下载`tagcloud.min.js`文件
 
 #### 2、Include，在HTML中加载这两个文件
 * 根据你的路径将`tagcloud.css`文件插入至`</head>`前
-```
-<link rel="stylesheet" href="tagcloud.css">
-```
+  ```
+  <link rel="stylesheet" href="tagcloud.css">
+  ```
 * 根据你的路径将`tagcloud.min.js`文件插入至`</head>`前或`</body>`前
-```
-<script src="tagcloud.min.js"></script>
-```
+  ```
+  <script src="tagcloud.min.js"></script>
+  ```
 
 #### 3、Build
 * HTML，将数量不限的tag放入`a标签`内，并放入至class为`tagcloud`元素中
-```
-<div class="tagcloud">
+  ```
+  <div class="tagcloud">
   <a href="#">text</a>
   <a href="#">text</a>
   <a href="#">text</a>
@@ -48,22 +52,22 @@ tagcloud
   <a href="#">text</a>
   <a href="#">text</a>
   <a href="#">text</a>
-</div>
-```
+  </div>
+  ```
 * 将上述class为`tagcloud`的元素放入固定了`height`和`width`的你自己创建的元素中，如: `创建一个height和width都为400px的div`
-```
-<div style="height: 400px; width: 400px;">
+  ```
+  <div style="height: 400px; width: 400px;">
   <div class="tagcloud">
     ...
   </div>
-</div>
-```
+  </div>
+  ```
 * JS，最后将该代码插入至`</body>`前
-```
-<script type="text/javascript">
+  ```
+  <script type="text/javascript">
   tagcloud();
-</script>
-```
+  </script>
+  ```
 * Run it, and have fun!
   * 默认样式[demo效果](http://tagcloud.congm.in)
 
@@ -80,11 +84,11 @@ tagcloud
   ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud1.png)
 
 * 更多参数设置`options`
-```
-<script type="text/javascript">
+  ```
+  <script type="text/javascript">
   tagcloud(options);
-</script>
-```
+  </script>
+  ```
 
 ## Options参数:
 ### 默认参数例子
@@ -131,3 +135,5 @@ tagcloud
 
 ## MIT License
 #### tagcloud @Cong Min
+
+2016-03-14, forked && modified by Ling.
