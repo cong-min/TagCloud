@@ -1,6 +1,5 @@
-tagcloud 
+tagcloud v1.1.0
 ================
-####forked from mcc108/tagcloud && js modified by Ling.
 
 
 
@@ -27,7 +26,7 @@ tagcloud
  └─ tagcloud.min.js   //min.js (<4kb)
 ```
 
-#### 1、Download，[下载](https://github.com/wssgcg1213/tagcloud/releases)
+#### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
 * 下载`tagcloud.css`文件
 * 下载`tagcloud.min.js`文件
 
@@ -133,7 +132,4 @@ tagcloud
     * `true` 表示移出后依旧随鼠标滚动, `false` 表示移出后减速至初速度滚动
   * 默认值：`true`
 
-## MIT License
-#### tagcloud @Cong Min
-
-2016-03-14, forked && modified by Ling.
+### MIT License

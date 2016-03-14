@@ -1,8 +1,7 @@
 /**
- * tagcloud v1.0.4 - http://tagcloud.congm.in
+ * tagcloud v1.1.0 - http://tagcloud.congm.in
  * Copyright 2016 @ Cong Min . Ling, Inc.
- *
- * MIT License
+ * MIT License - https://github.com/mcc108/tagcloud
  */
 ;window.tagcloud = (function(win, doc) { // ns
     // 判断对象
