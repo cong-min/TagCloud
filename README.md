@@ -1,4 +1,4 @@
-tagcloud  [v1.0.3](https://github.com/mcc108/tagcloud/releases)
+tagcloud 
 ================
 ####forked from mcc108/tagcloud && js modified by Ling.
 
@@ -27,7 +27,7 @@ tagcloud
  └─ tagcloud.min.js   //min.js (<4kb)
 ```
 
-#### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
+#### 1、Download，[下载](https://github.com/wssgcg1213/tagcloud/releases)
 * 下载`tagcloud.css`文件
 * 下载`tagcloud.min.js`文件
 
