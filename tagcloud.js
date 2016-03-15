@@ -53,6 +53,7 @@
         });
 
         //定时更新
+        TagCloud.boxs.push(self.box);
         self.update(self);    //初始更新
         self.box.style.visibility = "visible";
         self.box.style.position = "relative";
@@ -68,15 +69,11 @@
     }
 
     //实例
-    TagCloud.instances = [];
-    TagCloud.list = [];
+    TagCloud.boxs = []; //实例元素数组
     // 静态方法们
-    TagCloud._setInstances = function (element) {
-        if (TagCloud.list.indexOf(element) == -1) {
-            TagCloud.list.push(element);
+    TagCloud._set = function (element) {
+        if (TagCloud.boxs.indexOf(element) == -1) {
             return true;
-        } else {
-            return false;
         }
     };
     TagCloud._getConfig = function (config) {
@@ -215,13 +212,14 @@
     return function (options) { // factory
         options = options || {}; // 短路语法
         var selector = options.selector || '.tagcloud', //默认选择class为tagcloud的元素
-            elements = doc.querySelectorAll(selector);
+            elements = doc.querySelectorAll(selector),
+            instance = [];
         for (var index = 0, len = elements.length; index < len; index++) {
             options.element = elements[index];
-            if (TagCloud._setInstances(options.element)) {    //添加入实例
-                TagCloud.instances.push(new TagCloud(options));
+            if (!!TagCloud._set(options.element)) {
+                instance.push(new TagCloud(options));
             }
         }
-        return TagCloud.instances.length === 1 ? TagCloud.instances[0] : TagCloud.instances;
+        return instance;
     };
 })(window, document);
