@@ -1,8 +1,6 @@
 tagcloud v1.1.0
 ================
 
-
-
 tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
 
 demo: http://tagcloud.congm.in
@@ -44,27 +42,27 @@ tagcloud
 * HTML，将数量不限的tag放入`a标签`内，并放入至class为`tagcloud`元素中
 ```
 <div class="tagcloud">
-<a href="#">text</a>
-<a href="#">text</a>
-<a href="#">text</a>
-<a href="#">text</a>
-<a href="#">text</a>
-<a href="#">text</a>
-<a href="#">text</a>
+  <a href="#">text</a>
+  <a href="#">text</a>
+  <a href="#">text</a>
+  <a href="#">text</a>
+  <a href="#">text</a>
+  <a href="#">text</a>
+  <a href="#">text</a>
 </div>
 ```
 * 将上述class为`tagcloud`的元素放入固定了`height`和`width`的你自己创建的元素中，如: `创建一个height和width都为400px的div`
 ```
 <div style="height: 400px; width: 400px;">
-<div class="tagcloud">
-  ...
-</div>
+  <div class="tagcloud">
+    ...
+  </div>
 </div>
 ```
 * JS，最后将该代码插入至`</body>`前
 ```
 <script type="text/javascript">
-tagcloud();
+  tagcloud();
 </script>
 ```
 * Run it, and have fun!
@@ -85,7 +83,7 @@ tagcloud();
 * 更多参数设置`options`
 ```
 <script type="text/javascript">
-tagcloud(options);
+  tagcloud(options);
 </script>
 ```
 
@@ -95,6 +93,7 @@ tagcloud(options);
 <script type="text/javascript">
   tagcloud({
   //参数名: 默认值
+    selector: ".tagcloud",  //元素选择器
     fontsize: 16,       //基本字体大小
     radius: 60,         //滚动半径
     mspeed: "normal",   //滚动最大速度
@@ -105,6 +104,10 @@ tagcloud(options);
 </script>
 ```
 ### 参数列表
+* `selector`
+  * 元素选择器, 选择包含着标签的外层元素
+  * 取值(string字符串): 选择器
+  * 默认值：`.tagcloud`
 * `fontsize`
   * 基本字体大小
   * 取值(number数值): 单位px

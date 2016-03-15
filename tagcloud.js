@@ -35,13 +35,13 @@
         self.mouseY0 = -self.ispeed * Math.cos(self.direction * Math.PI / 180);   //鼠标与滚动圆心y轴初始距离
         self.mouseX = self.mouseX0;   //鼠标与滚动圆心x轴距离
         self.mouseY = self.mouseY0;   //鼠标与滚动圆心y轴距离
-        
+
         //鼠标移入
-        TagCloud._on(self.box, 'mouseover', function() {
+        TagCloud._on(self.box, 'mouseover', function () {
             self.active = true;
         });
         //鼠标移出
-        TagCloud._on(self.box, 'mouseout', function() {
+        TagCloud._on(self.box, 'mouseout', function () {
             self.active = false;
         });
         //鼠标在内移动
@@ -67,7 +67,18 @@
         }, 30);
     }
 
+    //实例
+    TagCloud.instances = [];
+    TagCloud.list = [];
     // 静态方法们
+    TagCloud._setInstances = function (element) {
+        if (TagCloud.list.indexOf(element) == -1) {
+            TagCloud.list.push(element);
+            return true;
+        } else {
+            return false;
+        }
+    };
     TagCloud._getConfig = function (config) {
         var defaultConfig = {      //默认值
             fontsize: 16,       //基本字体大小, 单位px
@@ -198,21 +209,19 @@
             }
 
             return items;   //单元素数组
-        },
+        }
     };
 
     return function (options) { // factory
         options = options || {}; // 短路语法
-
-        var className = options.className || 'tagcloud', //默认class tagcloud
-            elements = doc.querySelectorAll('.' + className),
-            ret = [];
-
+        var selector = options.selector || '.tagcloud', //默认选择class为tagcloud的元素
+            elements = doc.querySelectorAll(selector);
         for (var index = 0, len = elements.length; index < len; index++) {
             options.element = elements[index];
-            ret.push(new TagCloud(options));
+            if (TagCloud._setInstances(options.element)) {    //添加入实例
+                TagCloud.instances.push(new TagCloud(options));
+            }
         }
-
-        return ret.length === 1 ? ret[0] : ret;
+        return TagCloud.instances.length === 1 ? TagCloud.instances[0] : TagCloud.instances;
     };
 })(window, document);
