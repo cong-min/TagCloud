@@ -5,9 +5,7 @@ tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jque
 
 demo: http://tagcloud.congm.in
 
-example1: https://congm.in
-
-example2: https://cqupt.congm.in
+example1: https://cqupt.congm.in
 
 ***
 
