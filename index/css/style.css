@@ -1,0 +1,79 @@
+.navbar{
+    margin-bottom: 0;
+ }
+.navbar-brand{
+    color: #2F6F9F;
+    font-weight: bolder;
+}
+.github {
+    height: 18px;
+    margin: 0 4px;
+}
+.jumbotron{
+    padding: 0;
+}
+.jumbotron h1{
+    margin-top: 50px;
+}
+.jumbotron p{
+    font-size: 20px;
+    line-height: 150%;
+}
+.jumbotron p small{
+    font-size: 16px;
+}
+.version{
+    display: block;
+    font-size: 14px;
+    color: #999;
+    margin: 5px auto 25px;
+}
+.tagcloud-box{
+    height: 200px;
+    width: 200px;
+    margin: 15px auto 10px;
+}
+.tagcloud-box .tagcloud a{
+    font-weight: 500;
+}
+.tagcloud-btn{
+    color: #428BCA;
+    background-color: transparent;
+    border-color:#428BCA;
+    padding: 10px 20px;
+    margin: 10px auto 5px;
+    font-size: 18px;
+}
+.getting-started{
+    font-size: 16px;
+    line-height: 200%;
+}
+.getting-started h2{
+    margin-bottom: 25px;
+}
+.getting-started h3{
+    margin-bottom: 15px;
+}
+.main-list{
+    list-style: none;
+}
+.highlight {
+    background: #fff;
+}
+.highlight > pre {
+    border: 1px solid #eee;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+}
+.highlight .na {
+    color: #428BCA;
+}
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx {
+    color: #C7254E;
+}
+.highlight .p {
+    color: #93a1a1;
+}
+.highlight .nt {
+    color: #2F6F9F;
+}

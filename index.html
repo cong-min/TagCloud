@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TagCloud</title>
+    <link rel="stylesheet" href="index/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index/css/style.css">
+    <link rel="stylesheet" href="tagcloud.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <header class="s2-docs-nav navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">TagCloud</a>
+            </div>
+            <nav class="collapse navbar-collapse">
+                <ul class="nav navbar-nav nav-pills">
+                    <li><a href="demo.html" target="_blank">Demo</a></li>
+                    <li><a href="https://cqupt.congm.in" target="_blank">Example</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="https://github.com/mcc108/tagcloud" target="_blank"><img class="github" src="index/img/icon-github.png" alt="github">GitHub</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>TagCloud</h1>
+            <div class="tagcloud-box">
+                <div class="tagcloud">
+                    <a href="#">3D</a>
+                    <a href="#">Tag</a>
+                    <a href="#">Cloud</a>
+                    <a href="#">Tagcloud</a>
+                    <a href="#">标签</a>
+                    <a href="#">标签云</a>
+                    <a href="#">鼠标</a>
+                    <a href="#">滚动</a>
+                    <a href="#">Cong</a>
+                    <a href="#">Min</a>
+                </div>
+            </div>
+            <p>It's a 3D TagCloud with mouse scrolling. <br><small>(With javascript, but no jquery and only 4kb)</small></p>
+            <a class="btn btn-primary btn-lg tagcloud-btn" href="https://github.com/mcc108/tagcloud/releases" target="_blank">
+                Download TagCloud
+            </a>
+            <span class="version">v1.1.0</span>
+        </div>
+</div>
+    <div class="container">
+        <section class="getting-started">
+            <h2>Getting Started:</h2>
+            <ul class="main-list">
+                <li>
+                    <h3>1、Download（<a href="https://github.com/mcc108/tagcloud/releases" target="_blank">下载</a>）</h3>
+                    <ul>
+                        <li>下载<code>tagcloud.css</code>文件</li>
+                        <li>下载<code>tagcloud.min.js</code>文件</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>2、Include，在HTML中加载这两个文件</h3>
+                    <ul>
+                        <li>
+                            <p>根据你的路径将tagcloud.css文件插入至<code>&lt;/head&gt;</code>前：</p>
+                            <figure class="highlight">
+                                <pre><code><span class="nt">&lt;link </span><span class="na">rel=</span><span class="s">"stylesheet" </span><span class="na">href=</span><span class="s">"tagcloud.css"</span><span class="nt">&gt;</span></code></pre>
+                            </figure>
+                        </li>
+                        <li>
+                            <p>根据你的路径将tagcloud.min.js文件插入至<code>&lt;/head&gt;</code>前或<code>&lt;/body&gt;</code>前：</p>
+                            <figure class="highlight">
+                                <pre><code><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"tagcloud.min.js"</span><span class="nt">&gt;&lt;</span><span class="nt">/script&gt;</span></code></pre>
+                            </figure>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>3、 Build</h3>
+                    <ul>
+                        <li>
+                            <p>HTML，将数量不限的tag放入<code>a</code>标签内，并放入至class为<code>tagcloud</code>元素中：</p>
+                            <figure class="highlight">
+                                <pre><code><span class="nt">&lt;div</span><span class="na"> class=</span><span class="s">"tagcloud"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;a </span><span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>text<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;a </span><span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>text<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;a </span><span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>text<span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;a </span><span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>text<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre>
+                            </figure>
+                        </li>
+                        <li>
+                            <p>将上述class为<code>tagcloud</code>的元素放入固定了<code>height</code>和<code>width</code>的你自己创建的元素中，如: <code>创建一个height和width都为400px的div</code>：</p>
+                            <figure class="highlight">
+                                <pre><code><span class="nt">&lt;div </span><span class="na">style=</span><span class="s">"height: 400px; width:400px;"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div </span><span class="na">class=</span><span class="s">"tagcloud"</span><span class="nt">&gt;</span>
+        <span class="s">...</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre>
+                            </figure>
+                        </li>
+                        <li>
+                            <p>JS，将该代码插入至<code>&lt;/body&gt;</code>前：</p>
+                            <figure class="highlight">
+                                <pre><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+    tagcloud();
+<span class="nt">&lt;/script&gt;</span></code></pre>
+                            </figure>
+                        </li>
+                        <li>
+                            <p>Run it, and have fun!</p>
+                            <figure>
+                                <p>默认样式<a href="demo.html" target="_blank">demo效果</a></p>
+                                <img src="index/img/tagcloud2.png" alt="demo效果" />
+                            </figure>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>4*、More</h3>
+                    <ul>
+                        <li>
+                            <p>两种样式（背景皆为透明)</p>
+                            <ul>
+                                <li>默认样式（黑色字体）如上，外层元素设置为<code>class="tagcloud"</code></li>
+                                <li>light样式（白色字体），外层元素设置为<code>class="tagcloud tagcloud-light"</code>
+                                    <ul>
+                                        <li>
+                                            <figure>
+                                                <p>light样式<a href="#">demo效果</a></p>
+                                                <img src="index/img/tagcloud1.png" alt="demo效果">
+                                            </figure>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p>更多参数设置<code>options</code></p>
+                            <figure class="highlight">
+                                <pre><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+    tagcloud(options);
+<span class="nt">&lt;/script&gt;</span></code></pre>
+                            </figure>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <h2>Options参数:</h2>
+            <ul>
+                <li>
+                    <h3>默认参数例子</h3>
+                    <figure class="highlight">
+                        <pre><code><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+    tagcloud({
+        //参数名: 默认值
+        fontsize: 16,       //基本字体大小
+        radius: 60,         //滚动半径
+        mspeed: "normal",   //滚动最大速度
+        ispeed: "normal",   //滚动初速度
+        direction: 135,     //初始滚动方向
+        keep: true          //鼠标移出组件后是否继续随鼠标滚动
+    });
+<span class="nt">&lt;/script&gt;</span></code></pre>
+                    </figure>
+                </li>
+                <li>
+                    <h3>参数列表</h3>
+                    <ul class="ul_m">
+                        <li><code>fontsize</code>
+                            <ul>
+                                <li>基本字体大小</li>
+                                <li>取值(number数值): 单位px</li>
+                                <li>默认值：16</li>
+                            </ul>
+                        </li>
+                        <li><code>radius</code>
+                            <ul>
+                                <li>滚动半径</li>
+                                <li>取值(number数值): 单位px</li>
+                                <li>默认值：60</li>
+                            </ul>
+                        </li>
+                        <li><code>mspeed</code>
+                            <ul>
+                                <li>滚动最大速度</li>
+                                <li>取值(string字符串): slow, normal, fast</li>
+                                <li>默认值：normal</li>
+                            </ul></li>
+                        <li><code>ispeed</code>
+                            <ul>
+                                <li>滚动初速度</li>
+                                <li>取值(string字符串): slow, normal, fast</li>
+                                <li>默认值：normal</li>
+                            </ul></li>
+                        <li><code>direction</code>
+                            <ul>
+                                <li>初始滚动方向</li>
+                                <li>取值(number数值): 单位角度(顺时针360度)
+                                    <ul>
+                                        <li>如: 0对应top, 90对应left, 135对应right-bottom...</li>
+                                    </ul></li>
+                                <li>默认值：135</li>
+                            </ul></li>
+                        <li><code>keep</code>
+                            <ul>
+                                <li>鼠标移出组件后是否继续随鼠标滚动</li>
+                                <li>取值(boolean布尔值): true, false
+                                    <ul>
+                                        <li>true 表示移出后依旧随鼠标滚动, false 表示移出后减速至初速度滚动</li>
+                                    </ul></li>
+                                <li>默认值：true</li>
+                            </ul></li>
+                    </ul>
+                </li>
+            </ul>
+            <h2>MIT License</h2>
+        </section>
+    </div>
+<script type="text/javascript" src="tagcloud.min.js"></script>
+<script type="text/javascript">
+tagcloud({
+    radius: 60
+});
+</script>
+</body>
+</html>
