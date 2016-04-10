@@ -3,9 +3,11 @@ tagcloud v1.1.0
 
 tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
 
-demo: http://tagcloud.congm.in
+homepage: http://tagcloud.congm.in
 
-example1: https://cqupt.congm.in
+demo: http://tagcloud.congm.in/demo.html
+
+example: https://cqupt.congm.in
 
 ***
 
