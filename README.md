@@ -35,8 +35,8 @@ tagcloud
 ```
 
 #### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
-* 下载dist中`tagcloud.min.css`文件
-* 下载dist中`tagcloud.min.js`文件
+* 下载`dist`文件夹中`tagcloud.min.css`文件
+* 下载`dist`文件夹中`tagcloud.min.js`文件
 
 #### 2、Include，在HTML中加载这两个文件
 * 根据你的路径将`tagcloud.css`文件插入至`</head>`前
