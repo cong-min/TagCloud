@@ -1,10 +1,10 @@
 /**
- * tagcloud v1.1.0 - http://tagcloud.congm.in
+ * tagcloud v1.1.1 - http://tagcloud.congm.in
  * Copyright 2016 @ Cong Min , Inc.
  * MIT License - https://github.com/mcc108/tagcloud
  */
 require('./tagcloud.css');
-;window.tagcloud = (function(win, doc) { // ns
+window.tagcloud = (function(win, doc) { // ns
     // 判断对象
     function isObject (obj) {
         return Object.prototype.toString.call(obj) === '[object Object]';

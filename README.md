@@ -1,4 +1,4 @@
-tagcloud v1.1.0
+tagcloud v1.1.1
 ===
 
 tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
