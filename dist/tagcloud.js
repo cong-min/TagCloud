@@ -1,6 +1,6 @@
 /**
  * tagcloud v1.1.0 - http://tagcloud.congm.in
- * Copyright 2016 @ Cong Min . Ling, Inc.
+ * Copyright 2016 @ Cong Min , Inc.
  * MIT License - https://github.com/mcc108/tagcloud
  */
 ;window.tagcloud = (function(win, doc) { // ns
@@ -153,7 +153,7 @@
 
             self.lasta = a;
             self.lastb = b;
-            
+
             var sc = TagCloud._getSc(a, b);
 
             for (var j = 0, len = self.items.length; j < len; j++) {

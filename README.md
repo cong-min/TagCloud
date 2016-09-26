@@ -1,5 +1,5 @@
 tagcloud v1.1.0
-================
+===
 
 tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
 
@@ -16,22 +16,32 @@ example: https://cqupt.congm.in
 ### 目录结构
 ```
 tagcloud
- ├─ LICENSE           //MIT License
- ├─ README.md         //说明文档
- ├─ demo.html         //demo页面
- ├─ tagcloud.css      //css style (<1kb)
- ├─ tagcloud.js       //js (<9kb)
- └─ tagcloud.min.js   //min.js (<4kb)
+ ├─ LICENSE               // MIT License
+ ├─ README.md
+ ├─ webpack.config.js
+ ├─ package.json
+ ├─ src
+ │     └─ ...               // 打包前文件
+ ├─ example
+ │     ├─ demo.html         // demo页面
+ │     ├─ index.css         // index页面样式
+ │     ├─ index.html        // index页面
+ │     └─ index.js
+ └─ dist
+       ├─ tagcloud.css      // css style (<1kb)
+       ├─ tagcloud.js       // js (<9kb)
+       ├─ tagcloud.min.css  // min.css (<1kb)
+       └─ tagcloud.min.js   // min.js (<4kb)
 ```
 
 #### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
-* 下载`tagcloud.css`文件
-* 下载`tagcloud.min.js`文件
+* 下载`dist`文件夹中`tagcloud.min.css`文件
+* 下载`dist`文件夹中`tagcloud.min.js`文件
 
 #### 2、Include，在HTML中加载这两个文件
 * 根据你的路径将`tagcloud.css`文件插入至`</head>`前
 ```
-<link rel="stylesheet" href="tagcloud.css">
+<link rel="stylesheet" href="tagcloud.min.css">
 ```
 * 根据你的路径将`tagcloud.min.js`文件插入至`</head>`前或`</body>`前
 ```
@@ -68,7 +78,7 @@ tagcloud
 * Run it, and have fun!
   * 默认样式[demo效果](http://tagcloud.congm.in)
 
-![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud2.png)
+  ![taglcoud](https://raw.githubusercontent.com/mcc108/MarkdownPhotos/master/tagcloud/tagcloud2.png)
 
 ---
 
