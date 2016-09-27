@@ -35,7 +35,7 @@ tagcloud
 ## Getting started:
 
 ```
-npm install TagCloud --save
+$ npm install TagCloud --save
 ```
 
 ```
@@ -43,8 +43,6 @@ require('TagCloud');
 ```
 
 ### OR
-
----
 
 #### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
 * 下载`dist`文件夹中`tagcloud.min.css`文件
@@ -61,6 +59,8 @@ require('TagCloud');
 ```
 
 ## Build
+
+---
 
 * HTML，将数量不限的tag放入`a标签`内，并放入至class为`tagcloud`元素中
 ```
