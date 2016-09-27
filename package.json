@@ -1,8 +1,8 @@
 {
-  "name": "tagcloud",
+  "name": "TagCloud",
   "version": "1.2.0",
   "description": "3D TagCloud with JavaScript,no jquery and only 4kb",
-  "main": "webpack.config.js",
+  "main": "index.js",
   "scripts": {
     "build": "webpack -p",
     "clean": "rm -rf dist && rm -rf example",

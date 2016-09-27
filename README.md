@@ -1,7 +1,7 @@
-tagcloud v1.1.1
+TagCloud v1.1.1
 ===
 
-tagcloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
+TagCloud是一个能随鼠标滚动的3d标签云. (with javascript, but no jquery and only 4kb)
 
 homepage: http://tagcloud.congm.in
 
@@ -10,8 +10,6 @@ demo: http://tagcloud.congm.in/demo.html
 example: https://cqupt.congm.in
 
 ***
-
-## Getting started:
 
 ### 目录结构
 ```
@@ -34,6 +32,20 @@ tagcloud
        └─ tagcloud.min.js   // min.js (<4kb)
 ```
 
+## Getting started:
+
+```
+npm install TagCloud --save
+```
+
+```
+require('TagCloud');
+```
+
+### OR
+
+---
+
 #### 1、Download，[下载](https://github.com/mcc108/tagcloud/releases)
 * 下载`dist`文件夹中`tagcloud.min.css`文件
 * 下载`dist`文件夹中`tagcloud.min.js`文件
@@ -48,7 +60,8 @@ tagcloud
 <script src="tagcloud.min.js"></script>
 ```
 
-#### 3、Build
+## Build
+
 * HTML，将数量不限的tag放入`a标签`内，并放入至class为`tagcloud`元素中
 ```
 <div class="tagcloud">
@@ -69,11 +82,9 @@ tagcloud
   </div>
 </div>
 ```
-* JS，最后将该代码插入至`</body>`前
+* JS，调用
 ```
-<script type="text/javascript">
-  tagcloud();
-</script>
+tagcloud();
 ```
 * Run it, and have fun!
   * 默认样式[demo效果](http://tagcloud.congm.in)
@@ -92,15 +103,12 @@ tagcloud
 
 * 更多参数设置`options`
 ```
-<script type="text/javascript">
-  tagcloud(options);
-</script>
+tagcloud(options);
 ```
 
 ## Options参数:
 ### 默认参数例子
 ```
-<script type="text/javascript">
   tagcloud({
   //参数名: 默认值
     selector: ".tagcloud",  //元素选择器
@@ -111,7 +119,6 @@ tagcloud
     direction: 135,     //初始滚动方向
     keep: true          //鼠标移出组件后是否继续随鼠标滚动
   });
-</script>
 ```
 ### 参数列表
 * `selector`
