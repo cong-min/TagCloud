@@ -20,7 +20,7 @@ tagcloud
  ├─ package.json
  ├─ src
  │     └─ ...               // 打包前文件
- ├─ example
+ ├─ docs
  │     ├─ demo.html         // demo页面
  │     ├─ index.css         // index页面样式
  │     ├─ index.html        // index页面

@@ -11,7 +11,7 @@ module.exports = {
         '../dist/tagcloud.min': ['./src/tagcloud/tagcloud.js']
     },
     output: {
-        path: './example',
+        path: './docs',
         filename: '[name].js?[chunkhash:8]'
     },
     plugins: [
