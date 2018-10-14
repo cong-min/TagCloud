@@ -4,9 +4,7 @@
   "description": "3D TagCloud with JavaScript,no jquery and only 4kb",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -p",
-    "clean": "rm -rf dist && rm -rf docs",
-    "rebuild": "npm run clean && npm run build"
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
