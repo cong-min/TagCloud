@@ -1,5 +1,5 @@
 /*!
- * TagCloud.js v2.0.1
+ * TagCloud.js v2.0.2
  * Copyright (c) 2016-2019 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
@@ -189,6 +189,7 @@
         itemEl.style.zIndex = index + 1;
         itemEl.style.filter = 'alpha(opacity=0)';
         itemEl.style.opacity = 0;
+        itemEl.style.willChange = 'transform, opacity, filter';
         var transformOrigin = '50% 50%';
         itemEl.style.WebkitTransformOrigin = transformOrigin;
         itemEl.style.MozTransformOrigin = transformOrigin;
@@ -199,7 +200,7 @@
         itemEl.style.MozTransform = transform;
         itemEl.style.OTransform = transform;
         itemEl.style.transform = transform;
-        var transition = 'all .2s';
+        var transition = 'all .1s';
         itemEl.style.WebkitTransition = transition;
         itemEl.style.MozTransition = transition;
         itemEl.style.OTransition = transition;

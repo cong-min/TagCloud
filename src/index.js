@@ -94,6 +94,7 @@ class TagCloud {
         itemEl.style.zIndex = index + 1;
         itemEl.style.filter = 'alpha(opacity=0)';
         itemEl.style.opacity = 0;
+        itemEl.style.willChange = 'transform, opacity, filter';
         const transformOrigin = '50% 50%';
         itemEl.style.WebkitTransformOrigin = transformOrigin;
         itemEl.style.MozTransformOrigin = transformOrigin;
@@ -104,7 +105,7 @@ class TagCloud {
         itemEl.style.MozTransform = transform;
         itemEl.style.OTransform = transform;
         itemEl.style.transform = transform;
-        const transition = 'all .2s';
+        const transition = 'all .1s';
         itemEl.style.WebkitTransition = transition;
         itemEl.style.MozTransition = transition;
         itemEl.style.OTransition = transition;
