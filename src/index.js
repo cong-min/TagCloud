@@ -1,6 +1,5 @@
-/*!
- * TagCloud v2.0.0
- * Copyright (c) 2016-2019 @ Cong Min
+/**
+ * TagCloud.js (c) 2016-2019 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
 

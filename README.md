@@ -1,7 +1,6 @@
 # TagCloud
 
 [![TagCloud](https://img.shields.io/npm/v/TagCloud.svg?style=flat-square)](https://www.npmjs.com/package/TagCloud)
-
 [![minsize](https://img.shields.io/bundlephobia/min/TagCloud?label=TagCloud&style=flat-square)](https://github.com/mcc108/TagCloud/tree/master/dist)
 
 It is 3D **TagCloud** that scrolls with the mouse, and only 6kb, does not depend on any other libraries.
@@ -31,7 +30,7 @@ TagCloud(container, texts, options);
 
 ```html
 <!-- html -->
-<script type="text/javascript" src="./TagCloud.min.js"></script>
+<script type="text/javascript" src="./dist/TagCloud.min.js"></script>
 ```
 
 ```js
