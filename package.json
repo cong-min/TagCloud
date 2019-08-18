@@ -1,0 +1,33 @@
+{
+  "name": "TagCloud",
+  "version": "2.0.0",
+  "description": "3D TagCloud",
+  "main": "src/index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mcc108/TagCloud.git"
+  },
+  "author": "Cong Min",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mcc108/TagCloud/issues"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-soda-works": "^1.1.0",
+    "husky": "^3.0.4",
+    "lint-staged": "^8.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
