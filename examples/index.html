@@ -13,9 +13,8 @@
         a { color: #0366d6; text-decoration: none; }
         a:hover { text-decoration: underline; }
     </style>
-    <!-- 自定义样式 -->
+    <!-- customize style -->
     <style>
-        /* 自定义样式 */
         .tagcloud {
             font-size: 16px;
         }
@@ -44,7 +43,7 @@
     </style>
 </head>
 <body>
-    <h1><a href="http://github.com/mcc108/TagCloud">TagCloud v2.0</a></h1>
+    <h1><a href="http://github.com/mcc108/TagCloud">TagCloud.js</a></h1>
     <!-- 自定义样式切换 -->
     <ul>
         <li><a href="#" onclick="toDefault()">Default Style</a></li>
@@ -63,36 +62,24 @@
     </div>
     <script type="text/javascript" src="../dist/TagCloud.min.js"></script>
     <script>
-        /* TagCloud(container, texts, options);
-         - container: 容器元素选择器
-         - texts: 文本列表
-         - options: 配置项 [可选] (默认值 {
-            radius: 100,         // 滚动半径, 单位px
-            maxSpeed: 'normal',  // 滚动最大速度, 取值: slow, normal(默认), fast
-            initSpeed: 'normal', // 滚动初速度, 取值: slow, normal(默认), fast
-            direction: 135,      // 初始滚动方向, 取值角度(顺时针deg): 0 对应 top, 90 对应 left, 135 对应 right-bottom(默认)...
-            keep: true,          // 鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
-         })
-         */
+        // https://github.com/mcc108/TagCloud
         var texts = [
-            '啦啦啦', '啦啦', '啦啦啦',
-            '啦啦', '啦啦啦', '啦啦',
-            '啦啦啦', '啦啦', '啦啦啦',
-            '啦啦', '啦啦啦', '啦啦',
+            '3D', 'TagCloud', 'JavaScript',
+            'CSS3', 'Animation', 'Interactive',
+            'Mouse', 'Rolling', 'Sphere',
+            '6KB', 'v2.x',
         ];
         var tc = TagCloud('.content', texts);
         console.log(tc);
-        // 样式切换
-        function toDefault() {
-            document.body.classList.remove('light');
-        }
-        function toLight() {
-            document.body.classList.add('light');
-        }
-        // 添加与删除标签
+    </script>
+    <script>
+        // switch style
+        function toDefault() { document.body.classList.remove('light'); }
+        function toLight() { document.body.classList.add('light'); }
+        // add / remove tag
         function addTag() {
             if (!tc) return;
-            texts = texts.concat(['嘿嘿']);
+            texts.push('New');
             tc.update(texts);
         }
         function removeTag() {
@@ -100,22 +87,17 @@
             texts.pop();
             tc.update(texts);
         }
-        var moreTcs = [];
-        // 创建与摧毁标签云
+        var otherTcs = [];
+        // create and destroy tagcloud
         function toCreate() {
-            var tc = TagCloud('.content', [
-                '啦啦啦', '啦啦', '啦啦啦',
-                '啦啦', '啦啦啦', '啦啦',
-                '啦啦啦', '啦啦', '啦啦啦',
-                '啦啦', '啦啦啦', '啦啦',
-            ]);
-            moreTcs.push(tc);
+            if (otherTcs.length >= 3) return;
+            otherTcs.push(TagCloud('.content', texts));
         }
         function toDestroy() {
-            var last = moreTcs[moreTcs.length - 1];
+            var last = otherTcs[otherTcs.length - 1];
             if (!last) return;
             last.destroy();
-            moreTcs.pop();
+            otherTcs.pop();
         }
     </script>
 </body>

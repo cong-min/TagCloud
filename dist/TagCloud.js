@@ -1,6 +1,6 @@
 /*!
- * TagCloud.js v2.0.2
- * Copyright (c) 2016-2019 @ Cong Min
+ * TagCloud.js v2.0.3
+ * Copyright (c) 2016-2020 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
 (function (global, factory) {
@@ -105,7 +105,7 @@
   var TagCloud =
   /*#__PURE__*/
   function () {
-    /* 构造函数 */
+    /* constructor */
     function TagCloud() {
       var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.body;
       var texts = arguments.length > 1 ? arguments[1] : undefined;
@@ -114,31 +114,31 @@
       _classCallCheck(this, TagCloud);
 
       var self = this;
-      if (!container || container.nodeType !== 1) return new Error('Incorrect element type'); // 处理参数
+      if (!container || container.nodeType !== 1) return new Error('Incorrect element type'); // params
 
       self.$container = container;
       self.texts = texts || [];
-      self.config = _objectSpread2({}, TagCloud._defaultConfig, {}, options || {}); // 计算配置
+      self.config = _objectSpread2({}, TagCloud._defaultConfig, {}, options || {}); // calculate config
 
-      self.radius = self.config.radius; // 滚动半径
+      self.radius = self.config.radius; // rolling radius
 
-      self.depth = 2 * self.radius; // 滚动深度
+      self.depth = 2 * self.radius; // rolling depth
 
-      self.size = 1.5 * self.radius; // 随鼠标滚动变速作用区域
+      self.size = 1.5 * self.radius; // rolling area size with mouse
 
-      self.maxSpeed = TagCloud._getMaxSpeed(self.config.maxSpeed); // 滚动最大速度倍数
+      self.maxSpeed = TagCloud._getMaxSpeed(self.config.maxSpeed); // rolling max speed
 
-      self.initSpeed = TagCloud._getInitSpeed(self.config.initSpeed); // 滚动初速度
+      self.initSpeed = TagCloud._getInitSpeed(self.config.initSpeed); // rolling init speed
 
-      self.direction = self.config.direction; // 初始滚动方向
+      self.direction = self.config.direction; // rolling init direction
 
-      self.keep = self.config.keep; // 鼠标移出后是否保持之前滚动
-      // 创建元素
+      self.keep = self.config.keep; // whether to keep rolling after mouse out area
+      // create element
 
-      self._createElment(); // 初始化
+      self._createElment(); // init
 
 
-      self._init(); // 设置元素及实例
+      self._init(); // set elements and instances
 
 
       TagCloud.list.push({
@@ -147,23 +147,23 @@
         instance: self
       });
     }
-    /* 静态属性方法 */
-    // 所有 TagCloud 的个数
+    /* static method */
+    // all TagCloud list
 
 
     _createClass(TagCloud, [{
       key: "_createElment",
 
-      /* 实例属性方法 */
-      // 创建元素
+      /* instance property method */
+      // create elment
       value: function _createElment() {
-        var self = this; // 创建容器元素
+        var self = this; // create container
 
         var $el = document.createElement('div');
         $el.className = 'tagcloud';
         $el.style.position = 'relative';
         $el.style.width = "".concat(2 * self.radius, "px");
-        $el.style.height = "".concat(2 * self.radius, "px"); // 创建文本元素
+        $el.style.height = "".concat(2 * self.radius, "px"); // create texts
 
         self.items = [];
         self.texts.forEach(function (text, index) {
@@ -174,7 +174,7 @@
         });
         self.$container.appendChild($el);
         self.$el = $el;
-      } // 创建单个文本项
+      } // create a text
 
     }, {
       key: "_createTextItem",
@@ -195,7 +195,7 @@
         itemEl.style.MozTransformOrigin = transformOrigin;
         itemEl.style.OTransformOrigin = transformOrigin;
         itemEl.style.transformOrigin = transformOrigin;
-        var transform = 'translateX(-50%) translateY(-50%) scale(1)';
+        var transform = 'translate3d(-50%, -50%, 0) scale(1)';
         itemEl.style.WebkitTransform = transform;
         itemEl.style.MozTransform = transform;
         itemEl.style.OTransform = transform;
@@ -209,14 +209,14 @@
         return _objectSpread2({
           el: itemEl
         }, self._computePosition(index));
-      } // 计算位置
+      } // calculate appropriate place
 
     }, {
       key: "_computePosition",
       value: function _computePosition(index) {
         var random = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
         var self = this;
-        var textsLength = self.texts.length; // random 为 true, 则表示生成随机的合适位置, 位置将 index 无关
+        var textsLength = self.texts.length; // if random `true`, It means that a random appropriate place is generated, and the position will be independent of `index`
 
         if (random) index = Math.floor(Math.random() * (textsLength + 1));
         var phi = Math.acos(-1 + (2 * index + 1) / textsLength);
@@ -226,31 +226,31 @@
           y: self.size * Math.sin(theta) * Math.sin(phi) / 2,
           z: self.size * Math.cos(phi) / 2
         };
-      } // 初始化
+      } // init
 
     }, {
       key: "_init",
       value: function _init() {
         var self = this;
-        self.active = false; // 是否为鼠标激活态
+        self.active = false; // whether the mouse is activated
 
-        self.mouseX0 = self.initSpeed * Math.sin(self.direction * (Math.PI / 180)); // 鼠标与滚动圆心x轴初始距离
+        self.mouseX0 = self.initSpeed * Math.sin(self.direction * (Math.PI / 180)); // init distance between the mouse and rolling center x axis
 
-        self.mouseY0 = -self.initSpeed * Math.cos(self.direction * (Math.PI / 180)); // 鼠标与滚动圆心y轴初始距离
+        self.mouseY0 = -self.initSpeed * Math.cos(self.direction * (Math.PI / 180)); // init distance between the mouse and rolling center y axis
 
-        self.mouseX = self.mouseX0; // 鼠标与滚动圆心x轴距离
+        self.mouseX = self.mouseX0; // current distance between the mouse and rolling center x axis
 
-        self.mouseY = self.mouseY0; // 鼠标与滚动圆心y轴距离
-        // 鼠标移入
+        self.mouseY = self.mouseY0; // current distance between the mouse and rolling center y axis
+        // mouseover
 
         TagCloud._on(self.$el, 'mouseover', function () {
           self.active = true;
-        }); // 鼠标移出
+        }); // mouseout
 
 
         TagCloud._on(self.$el, 'mouseout', function () {
           self.active = false;
-        }); // 鼠标在内移动
+        }); // mousemove
 
 
         TagCloud._on(self.keep ? window : self.$el, 'mousemove', function (ev) {
@@ -258,32 +258,32 @@
           var rect = self.$el.getBoundingClientRect();
           self.mouseX = (ev.clientX - (rect.left + rect.width / 2)) / 5;
           self.mouseY = (ev.clientY - (rect.top + rect.height / 2)) / 5;
-        }); // 定时更新状态
+        }); // update state regularly
 
 
-        self._next(); // 初始更新状态
+        self._next(); // init update state
 
 
         self.interval = setInterval(function () {
           self._next.call(self);
         }, 100);
-      } // 运算下一个状态
+      } // calculate the next state
 
     }, {
       key: "_next",
       value: function _next() {
-        var self = this; // keep 为 false 时, 鼠标移出组件后暂停滚动
+        var self = this; // if keep `false`, pause rolling after moving mouse out area
 
         if (!self.keep && !self.active) {
-          self.mouseX = Math.abs(self.mouseX - self.mouseX0) < 1 ? self.mouseX0 : (self.mouseX + self.mouseX0) / 2; // 重置鼠标与滚动圆心x轴距离
+          self.mouseX = Math.abs(self.mouseX - self.mouseX0) < 1 ? self.mouseX0 : (self.mouseX + self.mouseX0) / 2; // reset distance between the mouse and rolling center x axis
 
-          self.mouseY = Math.abs(self.mouseY - self.mouseY0) < 1 ? self.mouseY0 : (self.mouseY + self.mouseY0) / 2; // 重置鼠标与滚动圆心y轴距离
+          self.mouseY = Math.abs(self.mouseY - self.mouseY0) < 1 ? self.mouseY0 : (self.mouseY + self.mouseY0) / 2; // reset distance between the mouse and rolling center y axis
         }
 
         var a = -(Math.min(Math.max(-self.mouseY, -self.size), self.size) / self.radius) * self.maxSpeed;
         var b = Math.min(Math.max(-self.mouseX, -self.size), self.size) / self.radius * self.maxSpeed;
-        if (Math.abs(a) <= 0.01 && Math.abs(b) <= 0.01) return; // 停止
-        // 计算偏移量
+        if (Math.abs(a) <= 0.01 && Math.abs(b) <= 0.01) return; // pause
+        // calculate offset
 
         var l = Math.PI / 180;
         var sc = [Math.sin(a * l), Math.cos(a * l), Math.sin(b * l), Math.cos(b * l)];
@@ -305,7 +305,7 @@
           var itemEl = item.el;
           var left = (item.x - itemEl.offsetWidth / 2).toFixed(2);
           var top = (item.y - itemEl.offsetHeight / 2).toFixed(2);
-          var transform = "translateX(".concat(left, "px) translateY(").concat(top, "px) scale(").concat(item.scale, ")");
+          var transform = "translate3d(".concat(left, "px, ").concat(top, "px, 0) scale(").concat(item.scale, ")");
           itemEl.style.WebkitTransform = transform;
           itemEl.style.MozTransform = transform;
           itemEl.style.OTransform = transform;
@@ -314,33 +314,33 @@
           itemEl.style.opacity = alpha;
         });
       }
-      /* 暴露的实例属性与方法 */
-      // 更新
+      /* export instance properties and methods */
+      // update
 
     }, {
       key: "update",
       value: function update(texts) {
-        var self = this; // 处理参数
+        var self = this; // params
 
-        self.texts = texts || []; // 根据 texts 判断并处理 items
+        self.texts = texts || []; // judging and processing items based on texts
 
         self.texts.forEach(function (text, index) {
           var item = self.items[index];
 
           if (!item) {
-            // 如果没有，则创建
+            // if not had, then create
             item = self._createTextItem(text, index);
 
-            _extends(item, self._computePosition(index, true)); // 随机位置
+            _extends(item, self._computePosition(index, true)); // random place
 
 
             self.$el.appendChild(item.el);
             self.items.push(item);
-          } // 如果有，则替换文本
+          } // if had, replace text
 
 
           item.el.innerText = text;
-        }); // 删除多余的 self.items
+        }); // remove redundant self.items
 
         var textsLength = self.texts.length;
         var itemsLength = self.items.length;
@@ -351,18 +351,18 @@
             self.$el.removeChild(item.el);
           });
         }
-      } // 摧毁
+      } // destroy
 
     }, {
       key: "destroy",
       value: function destroy() {
         var self = this;
-        self.interval = null; // 在 TagCloud.list 中清除
+        self.interval = null; // clear in TagCloud.list
 
         var index = TagCloud.list.findIndex(function (e) {
           return e.el === self.$el;
         });
-        if (index !== -1) TagCloud.list.splice(index, 1); // 清理元素
+        if (index !== -1) TagCloud.list.splice(index, 1); // clear element
 
         if (self.$container && self.$el) {
           self.$container.removeChild(self.$el);
@@ -370,7 +370,7 @@
       }
     }], [{
       key: "_on",
-      // 事件监听
+      // event listener
       value: function _on(el, ev, handler, cap) {
         if (el.addEventListener) {
           el.addEventListener(ev, handler, cap);
@@ -388,14 +388,14 @@
   TagCloud.list = [];
   TagCloud._defaultConfig = {
     radius: 100,
-    // 滚动半径, 单位px
+    // rolling radius, unit `px`
     maxSpeed: 'normal',
-    // 滚动最大速度, 取值: slow, normal(默认), fast
+    // rolling max speed, optional: `slow`, `normal`(default), `fast`
     initSpeed: 'normal',
-    // 滚动初速度, 取值: slow, normal(默认), fast
+    // rolling init speed, optional: `slow`, `normal`(default), `fast`
     direction: 135,
-    // 初始滚动方向, 取值角度(顺时针deg): 0 对应 top, 90 对应 left, 135 对应 right-bottom(默认)...
-    keep: true // 鼠标移出组件后是否继续随鼠标滚动, 取值: false, true(默认) 对应 减速至初速度滚动, 随鼠标滚动
+    // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
+    keep: true // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
 
   };
 

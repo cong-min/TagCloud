@@ -1,4 +1,4 @@
-**English** | [中文](./README.CN.md)
+[English](./README.md) | **中文**
 
 <p align="center">
   <img alt="TagCloud" src="https://raw.githubusercontent.com/mcc108/TagCloud/master/examples/tagcloud.gif" width="200">
@@ -12,11 +12,11 @@
 </p>
 
 <p align="center">
-  It is 3D <strong>TagCloud</strong> that rolling with the mouse. It is only 6KB in size and does not depend on any other libraries.
+  它是随着鼠标滚动的3D<strong>标签云</strong>，只有6kb大小，不依赖任何其他类库。
 </p>
 
 
-## Usage
+## 如何使用
 
 ### npm
 
@@ -40,7 +40,7 @@ TagCloud(container, texts, options);
 ```
 
 
-### Browser
+### 浏览器
 
 ```html
 <!-- html -->
@@ -51,74 +51,74 @@ TagCloud(container, texts, options);
 TagCloud(container, texts, options);
 ```
 
-## Constructor
+## 构造函数
 
 ### TagCloud(container, texts, options)
 
-Returns tagcloud instance.
+返回 tagcloud 实例。
 
 #### container
 
-Type: `String` or `HTMLElement` or `Array`
+类型: `String` 或 `HTMLElement` 或 `Array`
 
-Container for constructing a tagcloud.
+用于构造标签云的容器。
 
 #### texts
 
-Type: `Array`
+类型: `Array`
 
-List of tag text for init.
+初始化时的标签文本列表。
 
 #### options
 
-Type: `Object`
+类型: `Object`
 
 ##### options.radius
 
-Type: `Number`\
-Default: `100`\
-Unit: `px`
+类型: `Number`\
+默认值: `100`\
+单位: `px`
 
-Rolling radius.
+滚动半径。
 
 ##### options.maxSpeed
 
-Optional: `'slow'`, `'normal'`, `'fast'`\
-Default: `'normal'`
+可选值: `'slow'`, `'normal'`, `'fast'`\
+默认值: `'normal'`
 
-Rolling max speed.
+滚动最大速度。
 
 ##### options.initSpeed
 
-Optional: `'slow'`, `'normal'`, `'fast'`\
-Default: `'normal'`
+可选值: `'slow'`, `'normal'`, `'fast'`\
+默认值: `'normal'`
 
-Rolling init speed.
+滚动初始速度。
 
 ##### options.direction
 
-Type: `Number`\
-Default: `135` (right-bottom)\
-Unit: clockwise `deg`
+类型: `Number`\
+默认值: `135` (向右下滚动)\
+单位: 顺时针角度 `deg`
 
-Rolling init direction, e.g. `0` (top) , `90` (left), `135` (right-bottom) ...
+滚动初始方向，例如 `0` (向上滚动) , `90` (向左滚动), `135` (向右下滚动) ...
 
 ##### options.keep
 
-Type: `Boolean`\
-Default: `true`
+类型: `Boolean`\
+默认值: `true`
 
-Whether to keep rolling after mouse out area. Default `true` (decelerate to rolling init speed, and keep rolling with mouse).
+鼠标移除容器区域时是否保持继续滚动。默认为是 `true`，减速至初始滚动速度，然后继续随鼠标滚动。
 
-## Instance
+## 实例方法
 
 ### tagcloud.update(texts)
 
-Update tag list.
+更新标签文本列表。
 
 ### tagcloud.destroy()
 
-Destroy the tagcloud instance.
+摧毁标签云实例
 
 ## License
 
