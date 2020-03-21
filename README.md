@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  It is 3D <strong>TagCloud</strong> that rolling with the mouse. It is only 6KB in size and does not depend on any other libraries.
+  It is 3D <strong>TagCloud</strong> that rolling with the mouse. It is only 6KB in size and does not depend on any other libraries. <a href="http://tagcloud.congm.in/examples">Examples</a>
 </p>
 
 

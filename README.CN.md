@@ -1,7 +1,7 @@
 [English](./README.md) | **中文**
 
 <p align="center">
-    <a href="javascript:void(0);" target="_blank" rel="noopener noreferrer">
+    <a href="https://github.com/mcc108/TagCloud" rel="noopener noreferrer">
         <img width="200" src="https://github.com/mcc108/TagCloud/blob/master/examples/tagcloud.gif?raw=true" alt="TagCloud">
     </a>
 </p>
@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  它是随着鼠标滚动的3D<strong>标签云</strong>，只有6kb大小，不依赖任何其他类库。
+  它是随着鼠标滚动的3D<strong>标签云</strong>，只有6kb大小，不依赖任何其他类库。 <a href="http://tagcloud.congm.in/examples">例子</a>
 </p>
 
 
