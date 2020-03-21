@@ -1,7 +1,9 @@
 [English](./README.md) | **中文**
 
 <p align="center">
-  <img alt="TagCloud" src="https://raw.githubusercontent.com/mcc108/TagCloud/master/examples/tagcloud.gif" width="200">
+    <a href="javascript:void(0);" target="_blank" rel="noopener noreferrer">
+        <img width="200" src="https://github.com/mcc108/TagCloud/blob/master/examples/tagcloud.gif?raw=true" alt="TagCloud">
+    </a>
 </p>
 
 <h1 align="center">TagCloud.js</h1>
