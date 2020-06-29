@@ -1,31 +1,55 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>TagCloud Examples</title>
     <style>
-        body { font-family: sans-serif; text-align: center; }
-        .light { background: #666; color: #fff; }
-        .content .tagcloud { display: inline-block; margin: 20px; }
-        ul { display: inline-block; }
-        a { color: #0366d6; text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        .light {
+            background: #666;
+            color: #fff;
+        }
+
+        .content .tagcloud {
+            display: inline-block;
+            margin: 20px;
+        }
+
+        ul {
+            display: inline-block;
+        }
+
+        a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
-    <!-- customize style -->
+    <!-- custom style -->
     <style>
         .tagcloud {
             font-size: 16px;
         }
+
         .tagcloud--item {
             padding: 2px 4px;
             background-color: transparent;
             border: 1px solid transparent;
             cursor: pointer;
         }
+
         .tagcloud--item:hover {
-            background-color: rgba(0,0,0,.1);
+            background-color: rgba(0, 0, 0, .1);
             border: 1px solid #333;
             -webkit-border-radius: 2px;
             -moz-border-radius: 2px;
@@ -33,15 +57,18 @@
             opacity: 1 !important;
             z-index: 100 !important;
         }
+
         .light .tagcloud--item {
             color: #fff;
         }
+
         .light .tagcloud--item:hover {
-            background-color: rgba(255,255,255,.1);
+            background-color: rgba(255, 255, 255, .1);
             border: 1px solid #fff;
         }
     </style>
 </head>
+
 <body>
     <h1><a href="http://github.com/mcc108/TagCloud">TagCloud.js</a></h1>
     <!-- 自定义样式切换 -->
@@ -62,7 +89,6 @@
     </div>
     <script type="text/javascript" src="../dist/TagCloud.min.js"></script>
     <script>
-        // https://github.com/mcc108/TagCloud
         var texts = [
             '3D', 'TagCloud', 'JavaScript',
             'CSS3', 'Animation', 'Interactive',
@@ -101,4 +127,5 @@
         }
     </script>
 </body>
+
 </html>
