@@ -16,7 +16,27 @@
   It's 3D <strong>TagCloud</strong> that rolling with the mouse. It's only 6KB in minsize and doesn't depend on other libraries. <a href="http://tagcloud.congm.in/examples">Examples</a>
 </p>
 
-
+- [Usage](#usage)
+  - [npm](#npm)
+  - [Browser](#browser)
+- [Constructor](#constructor)
+  - [TagCloud(container, texts, options)](#tagcloudcontainer-texts-options)
+    - [container](#container)
+    - [texts](#texts)
+    - [options](#options)
+      - [options.radius](#optionsradius)
+      - [options.maxSpeed](#optionsmaxspeed)
+      - [options.initSpeed](#optionsinitspeed)
+      - [options.direction](#optionsdirection)
+      - [options.keep](#optionskeep)
+- [Instance](#instance)
+  - [tagcloud.update(texts)](#tagcloudupdatetexts)
+  - [tagcloud.destroy()](#tagclouddestroy)
+- [Custom event handler](#custom-event-handler)
+  - [Use event delegation bind event listener to TagCloud instance root element](#use-event-delegation-bind-event-listener-to-tagcloud-instance-root-element)
+- [Custom style](#custom-style)
+  - [Add custom colors to TagCloud sub-item](#add-custom-colors-to-tagcloud-sub-item)
+- [License](#license)
 ## Usage
 
 ### npm
@@ -120,6 +140,44 @@ Update tag list.
 ### tagcloud.destroy()
 
 Destroy the tagcloud instance.
+
+## Custom event handler
+
+### Use event delegation bind event listener to TagCloud instance root element
+
+The following is an example, click the TagCloud sub-item to jump to Google to search for keywords.
+
+```javascript
+let rootEl = document.querySelector('.content');
+rootEl.addEventListener('click', function clickEventHandler(e) {
+    if (e.target.className === 'tagcloud--item') {
+        window.open(`https://www.google.com/search?q=${e.target.innerText}`, '_blank');
+        // your code here
+    }
+});
+```
+
+## Custom style
+
+### Add custom colors to TagCloud sub-item
+
+The following is an example, TagCloud sub-item is in green font, and when it is moved to it, it becomes red.
+
+First, add an extra class to the container (the container used to construct TagCloud, the container in this example is called content), such as diy.
+
+```html
+<div class="content diy"></div>
+```
+
+```css
+.diy .tagcloud--item {
+    color: #67C23A;
+}
+
+.diy .tagcloud--item:hover {
+    color: #F56C6C;
+}
+```
 
 ## License
 

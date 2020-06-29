@@ -18,7 +18,27 @@
   它是随着鼠标滚动的3D<strong>标签云</strong>，只有6kb大小，不依赖任何其他类库。 <a href="http://tagcloud.congm.in/examples">例子</a>
 </p>
 
-
+- [如何使用](#如何使用)
+  - [npm](#npm)
+  - [浏览器](#浏览器)
+- [构造函数](#构造函数)
+  - [TagCloud(container, texts, options)](#tagcloudcontainer-texts-options)
+    - [container](#container)
+    - [texts](#texts)
+    - [options](#options)
+      - [options.radius](#optionsradius)
+      - [options.maxSpeed](#optionsmaxspeed)
+      - [options.initSpeed](#optionsinitspeed)
+      - [options.direction](#optionsdirection)
+      - [options.keep](#optionskeep)
+- [实例方法](#实例方法)
+  - [tagcloud.update(texts)](#tagcloudupdatetexts)
+  - [tagcloud.destroy()](#tagclouddestroy)
+- [自定义事件](#自定义事件)
+  - [使用事件委托机制来为标签云子项添加自定义事件](#使用事件委托机制来为标签云子项添加自定义事件)
+- [自定义样式](#自定义样式)
+  - [给标签云子项添加自定义颜色](#给标签云子项添加自定义颜色)
+- [License](#license)
 ## 如何使用
 
 ### npm
@@ -122,6 +142,44 @@ TagCloud(container, texts, options);
 ### tagcloud.destroy()
 
 摧毁标签云实例
+
+## 自定义事件
+
+### 使用事件委托机制来为标签云子项添加自定义事件
+
+以下是示例，点击标签云子项跳转到 Google 去搜索关键字
+
+```javascript
+let rootEl = document.querySelector('.content');
+rootEl.addEventListener('click', function clickEventHandler(e) {
+    if (e.target.className === 'tagcloud--item') {
+        window.open(`https://www.google.com/search?q=${e.target.innerText}`, '_blank');
+        // your code here
+    }
+});
+```
+
+## 自定义样式
+
+### 给标签云子项添加自定义颜色
+
+以下是示例，标签云子项为绿色字体，移动到其上方变为红色
+
+先给 container（ 用于构造标签云的容器，本示例的容器叫 content ），添加一个额外的 class，如 diy
+
+```html
+<div class="content diy"></div>
+```
+
+```css
+.diy .tagcloud--item {
+    color: #67C23A;
+}
+
+.diy .tagcloud--item:hover {
+    color: #F56C6C;
+}
+```
 
 ## License
 
