@@ -1,4 +1,5 @@
 **English** | [中文](./README.CN.md)
+Animation is amazing in this case !
 
 <p align="center">
   <img alt="TagCloud" src="https://raw.githubusercontent.com/mcc108/TagCloud/master/examples/tagcloud.gif" width="200">
