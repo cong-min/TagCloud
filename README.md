@@ -131,6 +131,44 @@ Default: `true`
 
 Whether to keep rolling after mouse out area. Default `true` (decelerate to rolling init speed, and keep rolling with mouse).
 
+##### options.containerClass
+
+Type: `String`\
+Default: `tagcloud`
+
+Css class to be used for the tagcloud container. Default `tagcloud`
+
+##### options.itemClass
+
+Type: `String`\
+Default: `tagcloud--item`
+
+Css class to be used for tagcloud items. Default `tagcloud--item`
+
+##### options.useInlineStyles
+
+Type: `Boolean`\
+Default: `true`
+
+Add common inline styles to the items which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
+```css
+.tagcloud--item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  will-change: transform, opacity, filter;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform: translate3d(-50%, -50%, 0) scale(1);
+  transition: all 0.1s ease 0s
+}
+```
+
 ## Instance
 
 ### tagcloud.update(texts)
