@@ -1,13 +1,13 @@
 /*!
  * TagCloud.js v2.1.0
- * Copyright (c) 2016-2020 @ Cong Min
+ * Copyright (c) 2016-2021 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.TagCloud = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -83,13 +83,13 @@
       var source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        ownKeys(source, true).forEach(function (key) {
+        ownKeys(Object(source), true).forEach(function (key) {
           _defineProperty(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
         Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
       } else {
-        ownKeys(source).forEach(function (key) {
+        ownKeys(Object(source)).forEach(function (key) {
           Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
         });
       }
@@ -102,9 +102,7 @@
    * TagCloud.js (c) 2016-2019 @ Cong Min
    * MIT License - https://github.com/mcc108/TagCloud
    */
-  var TagCloud =
-  /*#__PURE__*/
-  function () {
+  var TagCloud = /*#__PURE__*/function () {
     /* constructor */
     function TagCloud() {
       var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.body;
@@ -118,7 +116,7 @@
 
       self.$container = container;
       self.texts = texts || [];
-      self.config = _objectSpread2({}, TagCloud._defaultConfig, {}, options || {}); // calculate config
+      self.config = _objectSpread2(_objectSpread2({}, TagCloud._defaultConfig), options || {}); // calculate config
 
       self.radius = self.config.radius; // rolling radius
 
@@ -160,7 +158,7 @@
         var self = this; // create container
 
         var $el = document.createElement('div');
-        $el.className = 'tagcloud';
+        $el.className = self.config.containerClass;
         $el.style.position = 'relative';
         $el.style.width = "".concat(2 * self.radius, "px");
         $el.style.height = "".concat(2 * self.radius, "px"); // create texts
@@ -182,29 +180,33 @@
         var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
         var self = this;
         var itemEl = document.createElement('span');
-        itemEl.className = 'tagcloud--item';
-        itemEl.style.position = 'absolute';
-        itemEl.style.top = '50%';
-        itemEl.style.left = '50%';
-        itemEl.style.zIndex = index + 1;
-        itemEl.style.filter = 'alpha(opacity=0)';
-        itemEl.style.opacity = 0;
-        itemEl.style.willChange = 'transform, opacity, filter';
-        var transformOrigin = '50% 50%';
-        itemEl.style.WebkitTransformOrigin = transformOrigin;
-        itemEl.style.MozTransformOrigin = transformOrigin;
-        itemEl.style.OTransformOrigin = transformOrigin;
-        itemEl.style.transformOrigin = transformOrigin;
-        var transform = 'translate3d(-50%, -50%, 0) scale(1)';
-        itemEl.style.WebkitTransform = transform;
-        itemEl.style.MozTransform = transform;
-        itemEl.style.OTransform = transform;
-        itemEl.style.transform = transform;
-        var transition = 'all .1s';
-        itemEl.style.WebkitTransition = transition;
-        itemEl.style.MozTransition = transition;
-        itemEl.style.OTransition = transition;
-        itemEl.style.transition = transition;
+        itemEl.className = self.config.itemClass;
+
+        if (self.config.addCss) {
+          itemEl.style.position = 'absolute';
+          itemEl.style.top = '50%';
+          itemEl.style.left = '50%';
+          itemEl.style.zIndex = index + 1;
+          itemEl.style.filter = 'alpha(opacity=0)';
+          itemEl.style.opacity = 0;
+          itemEl.style.willChange = 'transform, opacity, filter';
+          var transformOrigin = '50% 50%';
+          itemEl.style.WebkitTransformOrigin = transformOrigin;
+          itemEl.style.MozTransformOrigin = transformOrigin;
+          itemEl.style.OTransformOrigin = transformOrigin;
+          itemEl.style.transformOrigin = transformOrigin;
+          var transform = 'translate3d(-50%, -50%, 0) scale(1)';
+          itemEl.style.WebkitTransform = transform;
+          itemEl.style.MozTransform = transform;
+          itemEl.style.OTransform = transform;
+          itemEl.style.transform = transform;
+          var transition = 'all .1s';
+          itemEl.style.WebkitTransition = transition;
+          itemEl.style.MozTransition = transition;
+          itemEl.style.OTransition = transition;
+          itemEl.style.transition = transition;
+        }
+
         itemEl.innerText = text;
         return _objectSpread2({
           el: itemEl
@@ -368,6 +370,19 @@
           self.$container.removeChild(self.$el);
         }
       }
+    }, {
+      key: "updateRadius",
+      value: function updateRadius(radius) {
+        var self = this;
+        self.radius = self.config.radius; // rolling radius
+
+        self.depth = 2 * self.radius; // rolling depth
+
+        self.size = 1.5 * self.radius; // rolling area size with mouse
+
+        self.$el.style.width = "".concat(2 * self.radius, "px");
+        self.$el.style.height = "".concat(2 * self.radius, "px");
+      }
     }], [{
       key: "_on",
       // event listener
@@ -395,8 +410,11 @@
     // rolling init speed, optional: `slow`, `normal`(default), `fast`
     direction: 135,
     // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
-    keep: true // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
-
+    keep: true,
+    // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+    addCss: true,
+    containerClass: 'tagcloud--container',
+    itemClass: 'tagcloud--item'
   };
 
   TagCloud._getMaxSpeed = function (name) {
@@ -429,4 +447,4 @@
 
   return index;
 
-}));
+})));

@@ -42,6 +42,9 @@ class TagCloud {
         initSpeed: 'normal', // rolling init speed, optional: `slow`, `normal`(default), `fast`
         direction: 135, // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
         keep: true, // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+        addCss: true,
+        containerClass: 'tagcloud',
+        itemClass: 'tagcloud--item'
     };
 
     // speed value
@@ -67,7 +70,7 @@ class TagCloud {
 
         // create container
         const $el = document.createElement('div');
-        $el.className = 'tagcloud';
+        $el.className = self.config.containerClass;
         $el.style.position = 'relative';
         $el.style.width = `${2 * self.radius}px`;
         $el.style.height = `${2 * self.radius}px`;
@@ -87,29 +90,31 @@ class TagCloud {
     _createTextItem(text, index = 0) {
         const self = this;
         const itemEl = document.createElement('span');
-        itemEl.className = 'tagcloud--item';
-        itemEl.style.position = 'absolute';
-        itemEl.style.top = '50%';
-        itemEl.style.left = '50%';
-        itemEl.style.zIndex = index + 1;
-        itemEl.style.filter = 'alpha(opacity=0)';
-        itemEl.style.opacity = 0;
-        itemEl.style.willChange = 'transform, opacity, filter';
-        const transformOrigin = '50% 50%';
-        itemEl.style.WebkitTransformOrigin = transformOrigin;
-        itemEl.style.MozTransformOrigin = transformOrigin;
-        itemEl.style.OTransformOrigin = transformOrigin;
-        itemEl.style.transformOrigin = transformOrigin;
-        const transform = 'translate3d(-50%, -50%, 0) scale(1)';
-        itemEl.style.WebkitTransform = transform;
-        itemEl.style.MozTransform = transform;
-        itemEl.style.OTransform = transform;
-        itemEl.style.transform = transform;
-        const transition = 'all .1s';
-        itemEl.style.WebkitTransition = transition;
-        itemEl.style.MozTransition = transition;
-        itemEl.style.OTransition = transition;
-        itemEl.style.transition = transition;
+        itemEl.className = self.config.itemClass;
+        if (self.config.addCss) {
+            itemEl.style.position = 'absolute';
+            itemEl.style.top = '50%';
+            itemEl.style.left = '50%';
+            itemEl.style.zIndex = index + 1;
+            itemEl.style.filter = 'alpha(opacity=0)';
+            itemEl.style.opacity = 0;
+            itemEl.style.willChange = 'transform, opacity, filter';
+            const transformOrigin = '50% 50%';
+            itemEl.style.WebkitTransformOrigin = transformOrigin;
+            itemEl.style.MozTransformOrigin = transformOrigin;
+            itemEl.style.OTransformOrigin = transformOrigin;
+            itemEl.style.transformOrigin = transformOrigin;
+            const transform = 'translate3d(-50%, -50%, 0) scale(1)';
+            itemEl.style.WebkitTransform = transform;
+            itemEl.style.MozTransform = transform;
+            itemEl.style.OTransform = transform;
+            itemEl.style.transform = transform;
+            const transition = 'all .1s';
+            itemEl.style.WebkitTransition = transition;
+            itemEl.style.MozTransition = transition;
+            itemEl.style.OTransition = transition;
+            itemEl.style.transition = transition;
+        }
         itemEl.innerText = text;
         return {
             el: itemEl,
@@ -262,6 +267,17 @@ class TagCloud {
         if (self.$container && self.$el) {
             self.$container.removeChild(self.$el);
         }
+    }
+
+    updateRadius(radius) {
+        const self = this;
+
+        self.radius = self.config.radius; // rolling radius
+        self.depth = 2 * self.radius; // rolling depth
+        self.size = 1.5 * self.radius; // rolling area size with mouse
+
+        self.$el.style.width = `${2 * self.radius}px`;
+        self.$el.style.height = `${2 * self.radius}px`;
     }
 }
 
