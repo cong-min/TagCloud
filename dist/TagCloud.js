@@ -182,7 +182,7 @@
         var itemEl = document.createElement('span');
         itemEl.className = self.config.itemClass;
 
-        if (self.config.useInlineStyles) {
+        if (self.config.useItemInlineStyles) {
           itemEl.style.position = 'absolute';
           itemEl.style.top = '50%';
           itemEl.style.left = '50%';
@@ -399,7 +399,7 @@
     // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
     keep: true,
     // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
-    useInlineStyles: true,
+    useItemInlineStyles: true,
     containerClass: 'tagcloud',
     itemClass: 'tagcloud--item'
   };

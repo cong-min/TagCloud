@@ -145,7 +145,7 @@ Default: `tagcloud--item`
 
 Css class to be used for tagcloud items. Default `tagcloud--item`
 
-##### options.useInlineStyles
+##### options.useItemInlineStyles
 
 Type: `Boolean`\
 Default: `true`
