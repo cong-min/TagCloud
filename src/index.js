@@ -268,17 +268,6 @@ class TagCloud {
             self.$container.removeChild(self.$el);
         }
     }
-
-    updateRadius(radius) {
-        const self = this;
-
-        self.radius = self.config.radius; // rolling radius
-        self.depth = 2 * self.radius; // rolling depth
-        self.size = 1.5 * self.radius; // rolling area size with mouse
-
-        self.$el.style.width = `${2 * self.radius}px`;
-        self.$el.style.height = `${2 * self.radius}px`;
-    }
 }
 
 export default (els, texts, options) => {
