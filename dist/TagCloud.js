@@ -182,7 +182,7 @@
         var itemEl = document.createElement('span');
         itemEl.className = self.config.itemClass;
 
-        if (self.config.addCss) {
+        if (self.config.useInlineStyles) {
           itemEl.style.position = 'absolute';
           itemEl.style.top = '50%';
           itemEl.style.left = '50%';
@@ -370,19 +370,6 @@
           self.$container.removeChild(self.$el);
         }
       }
-    }, {
-      key: "updateRadius",
-      value: function updateRadius(radius) {
-        var self = this;
-        self.radius = self.config.radius; // rolling radius
-
-        self.depth = 2 * self.radius; // rolling depth
-
-        self.size = 1.5 * self.radius; // rolling area size with mouse
-
-        self.$el.style.width = "".concat(2 * self.radius, "px");
-        self.$el.style.height = "".concat(2 * self.radius, "px");
-      }
     }], [{
       key: "_on",
       // event listener
@@ -412,8 +399,8 @@
     // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
     keep: true,
     // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
-    addCss: true,
-    containerClass: 'tagcloud--container',
+    useInlineStyles: true,
+    containerClass: 'tagcloud',
     itemClass: 'tagcloud--item'
   };
 
