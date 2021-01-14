@@ -192,6 +192,14 @@ Add inline styles to the tagcloud container which are required for correct view.
 
 Update tag list.
 
+### tagcloud.pause()
+
+Pause the tagcloud animation.
+
+### tagcloud.resume()
+
+Resume the tagcloud animation.
+
 ### tagcloud.destroy()
 
 Destroy the tagcloud instance.

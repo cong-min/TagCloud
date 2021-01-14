@@ -131,6 +131,8 @@
       self.direction = self.config.direction; // rolling init direction
 
       self.keep = self.config.keep; // whether to keep rolling after mouse out area
+
+      self.paused = false; // keep state to pause the animation
       // create element
 
       self._createElment(); // init
@@ -278,7 +280,12 @@
     }, {
       key: "_next",
       value: function _next() {
-        var self = this; // if keep `false`, pause rolling after moving mouse out area
+        var self = this;
+
+        if (self.paused) {
+          return;
+        } // if keep `false`, pause rolling after moving mouse out area
+
 
         if (!self.keep && !self.active) {
           self.mouseX = Math.abs(self.mouseX - self.mouseX0) < 1 ? self.mouseX0 : (self.mouseX + self.mouseX0) / 2; // reset distance between the mouse and rolling center x axis
@@ -373,6 +380,18 @@
         if (self.$container && self.$el) {
           self.$container.removeChild(self.$el);
         }
+      }
+    }, {
+      key: "pause",
+      value: function pause() {
+        var self = this;
+        self.paused = true;
+      }
+    }, {
+      key: "resume",
+      value: function resume() {
+        var self = this;
+        self.paused = false;
       }
     }], [{
       key: "_on",

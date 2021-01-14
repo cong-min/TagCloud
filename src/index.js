@@ -22,6 +22,7 @@ class TagCloud {
         self.initSpeed = TagCloud._getInitSpeed(self.config.initSpeed); // rolling init speed
         self.direction = self.config.direction; // rolling init direction
         self.keep = self.config.keep; // whether to keep rolling after mouse out area
+        self.paused = false; // keep state to pause the animation
 
         // create element
         self._createElment();
@@ -175,6 +176,10 @@ class TagCloud {
     _next() {
         const self = this;
 
+        if (self.paused) {
+            return;
+        }
+
         // if keep `false`, pause rolling after moving mouse out area
         if (!self.keep && !self.active) {
             self.mouseX = Math.abs(self.mouseX - self.mouseX0) < 1
@@ -270,6 +275,18 @@ class TagCloud {
         if (self.$container && self.$el) {
             self.$container.removeChild(self.$el);
         }
+    }
+
+    pause() {
+        const self = this;
+
+        self.paused = true;
+    }
+
+    resume() {
+        const self = this;
+
+        self.paused = false;
     }
 }
 
