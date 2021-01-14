@@ -169,6 +169,23 @@ Add common inline styles to the items which are required for correct view. When 
 }
 ```
 
+
+##### options.useContainerInlineStyles
+
+Type: `Boolean`\
+Default: `true`
+
+Add inline styles to the tagcloud container which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
+```css
+.tagcloud {
+    /* 100% width and proportional height */
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56%;
+}
+```
+
 ## Instance
 
 ### tagcloud.update(texts)

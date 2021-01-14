@@ -42,6 +42,7 @@ class TagCloud {
         initSpeed: 'normal', // rolling init speed, optional: `slow`, `normal`(default), `fast`
         direction: 135, // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
         keep: true, // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+        useContainerInlineStyles: true,
         useItemInlineStyles: true,
         containerClass: 'tagcloud',
         itemClass: 'tagcloud--item'
@@ -71,9 +72,11 @@ class TagCloud {
         // create container
         const $el = document.createElement('div');
         $el.className = self.config.containerClass;
-        $el.style.position = 'relative';
-        $el.style.width = `${2 * self.radius}px`;
-        $el.style.height = `${2 * self.radius}px`;
+        if (self.config.useContainerInlineStyles) {
+            $el.style.position = 'relative';
+            $el.style.width = `${2 * self.radius}px`;
+            $el.style.height = `${2 * self.radius}px`;
+        }
 
         // create texts
         self.items = [];
