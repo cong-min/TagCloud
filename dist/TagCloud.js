@@ -232,6 +232,32 @@
           y: self.size * Math.sin(theta) * Math.sin(phi) / 2,
           z: self.size * Math.cos(phi) / 2
         };
+      }
+    }, {
+      key: "_requestInterval",
+      value: function _requestInterval(fn, delay) {
+        var requestAnimFrame = function () {
+          return window.requestAnimationFrame || function (callback, element) {
+            window.setTimeout(callback, 1000 / 60);
+          };
+        }();
+
+        var start = new Date().getTime();
+        var handle = {};
+
+        function loop() {
+          handle.value = requestAnimFrame(loop);
+          var current = new Date().getTime(),
+              delta = current - start;
+
+          if (delta >= delay) {
+            fn.call();
+            start = new Date().getTime();
+          }
+        }
+
+        handle.value = requestAnimFrame(loop);
+        return handle;
       } // init
 
     }, {
@@ -270,7 +296,7 @@
         self._next(); // init update state
 
 
-        self.interval = setInterval(function () {
+        self.interval = self._requestInterval(function () {
           self._next.call(self);
         }, 100);
       } // calculate the next state
