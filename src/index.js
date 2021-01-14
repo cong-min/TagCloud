@@ -137,6 +137,26 @@ class TagCloud {
         };
     }
 
+    _requestInterval(fn, delay) {
+        // eslint-disable-next-line max-len
+        const requestAnimFrame = (() => window.requestAnimationFrame || function (callback, element) {
+            window.setTimeout(callback, 1000 / 60);
+        })();
+        let start = new Date().getTime();
+        const handle = {};
+        function loop() {
+            handle.value = requestAnimFrame(loop);
+            const current = new Date().getTime(),
+                delta = current - start;
+            if (delta >= delay) {
+                fn.call();
+                start = new Date().getTime();
+            }
+        }
+        handle.value = requestAnimFrame(loop);
+        return handle;
+    }
+
     // init
     _init() {
         const self = this;
@@ -163,7 +183,7 @@ class TagCloud {
 
         // update state regularly
         self._next(); // init update state
-        self.interval = setInterval(() => {
+        self.interval = self._requestInterval(() => {
             self._next.call(self);
         }, 100);
     }
