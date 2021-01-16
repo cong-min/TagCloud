@@ -50,9 +50,9 @@ class TagCloud {
     };
 
     // speed value
-    static _getMaxSpeed = (name) => ({ slow: 5, normal: 10, fast: 20 })[name] || 10;
+    static _getMaxSpeed = (name) => ({ slow: 0.5, normal: 1, fast: 2 })[name] || 1;
 
-    static _getInitSpeed = (name) => ({ slow: 20, normal: 40, fast: 80 })[name] || 50;
+    static _getInitSpeed = (name) => ({ slow: 2, normal: 4, fast: 8 })[name] || 4;
 
     // event listener
     static _on(el, ev, handler, cap) {
@@ -96,13 +96,13 @@ class TagCloud {
         const itemEl = document.createElement('span');
         itemEl.className = self.config.itemClass;
         if (self.config.useItemInlineStyles) {
+            itemEl.style.willChange = 'transform, opacity, filter';
             itemEl.style.position = 'absolute';
             itemEl.style.top = '50%';
             itemEl.style.left = '50%';
             itemEl.style.zIndex = index + 1;
             itemEl.style.filter = 'alpha(opacity=0)';
             itemEl.style.opacity = 0;
-            itemEl.style.willChange = 'transform, opacity, filter';
             const transformOrigin = '50% 50%';
             itemEl.style.WebkitTransformOrigin = transformOrigin;
             itemEl.style.MozTransformOrigin = transformOrigin;
@@ -113,11 +113,6 @@ class TagCloud {
             itemEl.style.MozTransform = transform;
             itemEl.style.OTransform = transform;
             itemEl.style.transform = transform;
-            const transition = 'all .1s';
-            itemEl.style.WebkitTransition = transition;
-            itemEl.style.MozTransition = transition;
-            itemEl.style.OTransition = transition;
-            itemEl.style.transition = transition;
         }
         itemEl.innerText = text;
         return {
@@ -142,10 +137,9 @@ class TagCloud {
     }
 
     _requestInterval(fn, delay) {
-        // eslint-disable-next-line max-len
-        const requestAnimFrame = (() => window.requestAnimationFrame || function (callback, element) {
+        const requestAnimFrame = ((() => window.requestAnimationFrame) || ((callback, element) => {
             window.setTimeout(callback, 1000 / 60);
-        })();
+        }))();
         let start = new Date().getTime();
         const handle = {};
         function loop() {
@@ -189,7 +183,7 @@ class TagCloud {
         self._next(); // init update state
         self.interval = self._requestInterval(() => {
             self._next.call(self);
-        }, 100);
+        }, 10);
     }
 
     // calculate the next state

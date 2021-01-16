@@ -189,13 +189,13 @@
         itemEl.className = self.config.itemClass;
 
         if (self.config.useItemInlineStyles) {
+          itemEl.style.willChange = 'transform, opacity, filter';
           itemEl.style.position = 'absolute';
           itemEl.style.top = '50%';
           itemEl.style.left = '50%';
           itemEl.style.zIndex = index + 1;
           itemEl.style.filter = 'alpha(opacity=0)';
           itemEl.style.opacity = 0;
-          itemEl.style.willChange = 'transform, opacity, filter';
           var transformOrigin = '50% 50%';
           itemEl.style.WebkitTransformOrigin = transformOrigin;
           itemEl.style.MozTransformOrigin = transformOrigin;
@@ -206,11 +206,6 @@
           itemEl.style.MozTransform = transform;
           itemEl.style.OTransform = transform;
           itemEl.style.transform = transform;
-          var transition = 'all .1s';
-          itemEl.style.WebkitTransition = transition;
-          itemEl.style.MozTransition = transition;
-          itemEl.style.OTransition = transition;
-          itemEl.style.transition = transition;
         }
 
         itemEl.innerText = text;
@@ -238,12 +233,11 @@
     }, {
       key: "_requestInterval",
       value: function _requestInterval(fn, delay) {
-        // eslint-disable-next-line max-len
-        var requestAnimFrame = function () {
-          return window.requestAnimationFrame || function (callback, element) {
-            window.setTimeout(callback, 1000 / 60);
-          };
-        }();
+        var requestAnimFrame = (function () {
+          return window.requestAnimationFrame;
+        } || function (callback, element) {
+          window.setTimeout(callback, 1000 / 60);
+        })();
 
         var start = new Date().getTime();
         var handle = {};
@@ -301,7 +295,7 @@
 
         self.interval = self._requestInterval(function () {
           self._next.call(self);
-        }, 100);
+        }, 10);
       } // calculate the next state
 
     }, {
@@ -457,18 +451,18 @@
 
   TagCloud._getMaxSpeed = function (name) {
     return {
-      slow: 5,
-      normal: 10,
-      fast: 20
-    }[name] || 10;
+      slow: 0.5,
+      normal: 1,
+      fast: 2
+    }[name] || 1;
   };
 
   TagCloud._getInitSpeed = function (name) {
     return {
-      slow: 20,
-      normal: 40,
-      fast: 80
-    }[name] || 50;
+      slow: 2,
+      normal: 4,
+      fast: 8
+    }[name] || 4;
   };
 
   var index = (function (els, texts, options) {
