@@ -1,13 +1,13 @@
 /*!
  * TagCloud.js v2.1.0
- * Copyright (c) 2016-2020 @ Cong Min
+ * Copyright (c) 2016-2021 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.TagCloud = factory());
-}(this, function () { 'use strict';
+}(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -83,13 +83,13 @@
       var source = arguments[i] != null ? arguments[i] : {};
 
       if (i % 2) {
-        ownKeys(source, true).forEach(function (key) {
+        ownKeys(Object(source), true).forEach(function (key) {
           _defineProperty(target, key, source[key]);
         });
       } else if (Object.getOwnPropertyDescriptors) {
         Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
       } else {
-        ownKeys(source).forEach(function (key) {
+        ownKeys(Object(source)).forEach(function (key) {
           Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
         });
       }
@@ -102,9 +102,7 @@
    * TagCloud.js (c) 2016-2019 @ Cong Min
    * MIT License - https://github.com/mcc108/TagCloud
    */
-  var TagCloud =
-  /*#__PURE__*/
-  function () {
+  var TagCloud = /*#__PURE__*/function () {
     /* constructor */
     function TagCloud() {
       var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.body;
@@ -118,7 +116,7 @@
 
       self.$container = container;
       self.texts = texts || [];
-      self.config = _objectSpread2({}, TagCloud._defaultConfig, {}, options || {}); // calculate config
+      self.config = _objectSpread2(_objectSpread2({}, TagCloud._defaultConfig), options || {}); // calculate config
 
       self.radius = self.config.radius; // rolling radius
 
@@ -133,6 +131,8 @@
       self.direction = self.config.direction; // rolling init direction
 
       self.keep = self.config.keep; // whether to keep rolling after mouse out area
+
+      self.paused = false; // keep state to pause the animation
       // create element
 
       self._createElment(); // init
@@ -160,10 +160,14 @@
         var self = this; // create container
 
         var $el = document.createElement('div');
-        $el.className = 'tagcloud';
-        $el.style.position = 'relative';
-        $el.style.width = "".concat(2 * self.radius, "px");
-        $el.style.height = "".concat(2 * self.radius, "px"); // create texts
+        $el.className = self.config.containerClass;
+
+        if (self.config.useContainerInlineStyles) {
+          $el.style.position = 'relative';
+          $el.style.width = "".concat(2 * self.radius, "px");
+          $el.style.height = "".concat(2 * self.radius, "px");
+        } // create texts
+
 
         self.items = [];
         self.texts.forEach(function (text, index) {
@@ -182,29 +186,33 @@
         var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
         var self = this;
         var itemEl = document.createElement('span');
-        itemEl.className = 'tagcloud--item';
-        itemEl.style.position = 'absolute';
-        itemEl.style.top = '50%';
-        itemEl.style.left = '50%';
-        itemEl.style.zIndex = index + 1;
-        itemEl.style.filter = 'alpha(opacity=0)';
-        itemEl.style.opacity = 0;
-        itemEl.style.willChange = 'transform, opacity, filter';
-        var transformOrigin = '50% 50%';
-        itemEl.style.WebkitTransformOrigin = transformOrigin;
-        itemEl.style.MozTransformOrigin = transformOrigin;
-        itemEl.style.OTransformOrigin = transformOrigin;
-        itemEl.style.transformOrigin = transformOrigin;
-        var transform = 'translate3d(-50%, -50%, 0) scale(1)';
-        itemEl.style.WebkitTransform = transform;
-        itemEl.style.MozTransform = transform;
-        itemEl.style.OTransform = transform;
-        itemEl.style.transform = transform;
-        var transition = 'all .1s';
-        itemEl.style.WebkitTransition = transition;
-        itemEl.style.MozTransition = transition;
-        itemEl.style.OTransition = transition;
-        itemEl.style.transition = transition;
+        itemEl.className = self.config.itemClass;
+
+        if (self.config.useItemInlineStyles) {
+          itemEl.style.position = 'absolute';
+          itemEl.style.top = '50%';
+          itemEl.style.left = '50%';
+          itemEl.style.zIndex = index + 1;
+          itemEl.style.filter = 'alpha(opacity=0)';
+          itemEl.style.opacity = 0;
+          itemEl.style.willChange = 'transform, opacity, filter';
+          var transformOrigin = '50% 50%';
+          itemEl.style.WebkitTransformOrigin = transformOrigin;
+          itemEl.style.MozTransformOrigin = transformOrigin;
+          itemEl.style.OTransformOrigin = transformOrigin;
+          itemEl.style.transformOrigin = transformOrigin;
+          var transform = 'translate3d(-50%, -50%, 0) scale(1)';
+          itemEl.style.WebkitTransform = transform;
+          itemEl.style.MozTransform = transform;
+          itemEl.style.OTransform = transform;
+          itemEl.style.transform = transform;
+          var transition = 'all .1s';
+          itemEl.style.WebkitTransition = transition;
+          itemEl.style.MozTransition = transition;
+          itemEl.style.OTransition = transition;
+          itemEl.style.transition = transition;
+        }
+
         itemEl.innerText = text;
         return _objectSpread2({
           el: itemEl
@@ -226,6 +234,33 @@
           y: self.size * Math.sin(theta) * Math.sin(phi) / 2,
           z: self.size * Math.cos(phi) / 2
         };
+      }
+    }, {
+      key: "_requestInterval",
+      value: function _requestInterval(fn, delay) {
+        // eslint-disable-next-line max-len
+        var requestAnimFrame = function () {
+          return window.requestAnimationFrame || function (callback, element) {
+            window.setTimeout(callback, 1000 / 60);
+          };
+        }();
+
+        var start = new Date().getTime();
+        var handle = {};
+
+        function loop() {
+          handle.value = requestAnimFrame(loop);
+          var current = new Date().getTime(),
+              delta = current - start;
+
+          if (delta >= delay) {
+            fn.call();
+            start = new Date().getTime();
+          }
+        }
+
+        handle.value = requestAnimFrame(loop);
+        return handle;
       } // init
 
     }, {
@@ -264,7 +299,7 @@
         self._next(); // init update state
 
 
-        self.interval = setInterval(function () {
+        self.interval = self._requestInterval(function () {
           self._next.call(self);
         }, 100);
       } // calculate the next state
@@ -272,7 +307,12 @@
     }, {
       key: "_next",
       value: function _next() {
-        var self = this; // if keep `false`, pause rolling after moving mouse out area
+        var self = this;
+
+        if (self.paused) {
+          return;
+        } // if keep `false`, pause rolling after moving mouse out area
+
 
         if (!self.keep && !self.active) {
           self.mouseX = Math.abs(self.mouseX - self.mouseX0) < 1 ? self.mouseX0 : (self.mouseX + self.mouseX0) / 2; // reset distance between the mouse and rolling center x axis
@@ -368,6 +408,18 @@
           self.$container.removeChild(self.$el);
         }
       }
+    }, {
+      key: "pause",
+      value: function pause() {
+        var self = this;
+        self.paused = true;
+      }
+    }, {
+      key: "resume",
+      value: function resume() {
+        var self = this;
+        self.paused = false;
+      }
     }], [{
       key: "_on",
       // event listener
@@ -395,8 +447,12 @@
     // rolling init speed, optional: `slow`, `normal`(default), `fast`
     direction: 135,
     // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
-    keep: true // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
-
+    keep: true,
+    // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+    useContainerInlineStyles: true,
+    useItemInlineStyles: true,
+    containerClass: 'tagcloud',
+    itemClass: 'tagcloud--item'
   };
 
   TagCloud._getMaxSpeed = function (name) {
@@ -429,4 +485,4 @@
 
   return index;
 
-}));
+})));

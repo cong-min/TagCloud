@@ -22,6 +22,7 @@ class TagCloud {
         self.initSpeed = TagCloud._getInitSpeed(self.config.initSpeed); // rolling init speed
         self.direction = self.config.direction; // rolling init direction
         self.keep = self.config.keep; // whether to keep rolling after mouse out area
+        self.paused = false; // keep state to pause the animation
 
         // create element
         self._createElment();
@@ -42,6 +43,10 @@ class TagCloud {
         initSpeed: 'normal', // rolling init speed, optional: `slow`, `normal`(default), `fast`
         direction: 135, // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
         keep: true, // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+        useContainerInlineStyles: true,
+        useItemInlineStyles: true,
+        containerClass: 'tagcloud',
+        itemClass: 'tagcloud--item'
     };
 
     // speed value
@@ -67,10 +72,12 @@ class TagCloud {
 
         // create container
         const $el = document.createElement('div');
-        $el.className = 'tagcloud';
-        $el.style.position = 'relative';
-        $el.style.width = `${2 * self.radius}px`;
-        $el.style.height = `${2 * self.radius}px`;
+        $el.className = self.config.containerClass;
+        if (self.config.useContainerInlineStyles) {
+            $el.style.position = 'relative';
+            $el.style.width = `${2 * self.radius}px`;
+            $el.style.height = `${2 * self.radius}px`;
+        }
 
         // create texts
         self.items = [];
@@ -87,29 +94,31 @@ class TagCloud {
     _createTextItem(text, index = 0) {
         const self = this;
         const itemEl = document.createElement('span');
-        itemEl.className = 'tagcloud--item';
-        itemEl.style.position = 'absolute';
-        itemEl.style.top = '50%';
-        itemEl.style.left = '50%';
-        itemEl.style.zIndex = index + 1;
-        itemEl.style.filter = 'alpha(opacity=0)';
-        itemEl.style.opacity = 0;
-        itemEl.style.willChange = 'transform, opacity, filter';
-        const transformOrigin = '50% 50%';
-        itemEl.style.WebkitTransformOrigin = transformOrigin;
-        itemEl.style.MozTransformOrigin = transformOrigin;
-        itemEl.style.OTransformOrigin = transformOrigin;
-        itemEl.style.transformOrigin = transformOrigin;
-        const transform = 'translate3d(-50%, -50%, 0) scale(1)';
-        itemEl.style.WebkitTransform = transform;
-        itemEl.style.MozTransform = transform;
-        itemEl.style.OTransform = transform;
-        itemEl.style.transform = transform;
-        const transition = 'all .1s';
-        itemEl.style.WebkitTransition = transition;
-        itemEl.style.MozTransition = transition;
-        itemEl.style.OTransition = transition;
-        itemEl.style.transition = transition;
+        itemEl.className = self.config.itemClass;
+        if (self.config.useItemInlineStyles) {
+            itemEl.style.position = 'absolute';
+            itemEl.style.top = '50%';
+            itemEl.style.left = '50%';
+            itemEl.style.zIndex = index + 1;
+            itemEl.style.filter = 'alpha(opacity=0)';
+            itemEl.style.opacity = 0;
+            itemEl.style.willChange = 'transform, opacity, filter';
+            const transformOrigin = '50% 50%';
+            itemEl.style.WebkitTransformOrigin = transformOrigin;
+            itemEl.style.MozTransformOrigin = transformOrigin;
+            itemEl.style.OTransformOrigin = transformOrigin;
+            itemEl.style.transformOrigin = transformOrigin;
+            const transform = 'translate3d(-50%, -50%, 0) scale(1)';
+            itemEl.style.WebkitTransform = transform;
+            itemEl.style.MozTransform = transform;
+            itemEl.style.OTransform = transform;
+            itemEl.style.transform = transform;
+            const transition = 'all .1s';
+            itemEl.style.WebkitTransition = transition;
+            itemEl.style.MozTransition = transition;
+            itemEl.style.OTransition = transition;
+            itemEl.style.transition = transition;
+        }
         itemEl.innerText = text;
         return {
             el: itemEl,
@@ -130,6 +139,26 @@ class TagCloud {
             y: (self.size * Math.sin(theta) * Math.sin(phi)) / 2,
             z: (self.size * Math.cos(phi)) / 2,
         };
+    }
+
+    _requestInterval(fn, delay) {
+        // eslint-disable-next-line max-len
+        const requestAnimFrame = (() => window.requestAnimationFrame || function (callback, element) {
+            window.setTimeout(callback, 1000 / 60);
+        })();
+        let start = new Date().getTime();
+        const handle = {};
+        function loop() {
+            handle.value = requestAnimFrame(loop);
+            const current = new Date().getTime(),
+                delta = current - start;
+            if (delta >= delay) {
+                fn.call();
+                start = new Date().getTime();
+            }
+        }
+        handle.value = requestAnimFrame(loop);
+        return handle;
     }
 
     // init
@@ -158,7 +187,7 @@ class TagCloud {
 
         // update state regularly
         self._next(); // init update state
-        self.interval = setInterval(() => {
+        self.interval = self._requestInterval(() => {
             self._next.call(self);
         }, 100);
     }
@@ -166,6 +195,10 @@ class TagCloud {
     // calculate the next state
     _next() {
         const self = this;
+
+        if (self.paused) {
+            return;
+        }
 
         // if keep `false`, pause rolling after moving mouse out area
         if (!self.keep && !self.active) {
@@ -262,6 +295,18 @@ class TagCloud {
         if (self.$container && self.$el) {
             self.$container.removeChild(self.$el);
         }
+    }
+
+    pause() {
+        const self = this;
+
+        self.paused = true;
+    }
+
+    resume() {
+        const self = this;
+
+        self.paused = false;
     }
 }
 
