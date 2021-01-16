@@ -31,13 +31,17 @@
       - [options.initSpeed](#optionsinitspeed)
       - [options.direction](#optionsdirection)
       - [options.keep](#optionskeep)
+      - [options.containerClass](#optionscontainerClass)
+      - [options.itemClass](#optionsitemClass)
+      - [options.useContainerInlineStyles](#optionsuseContainerInlineStyles)
+      - [options.useItemInlineStyles](#optionsuseItemInlineStyles)
 - [实例方法](#实例方法)
   - [tagcloud.update(texts)](#tagcloudupdatetexts)
+  - [tagcloud.pause()](#tagcloudpause)
+  - [tagcloud.resume()](#tagcloudresume)
   - [tagcloud.destroy()](#tagclouddestroy)
 - [自定义事件](#自定义事件)
-  - [使用事件委托机制来为标签云子项添加自定义事件](#使用事件委托机制来为标签云子项添加自定义事件)
-- [自定义样式](#自定义样式)
-  - [给标签云子项添加自定义颜色](#给标签云子项添加自定义颜色)
+  - [使用事件委托机制来为标签云子项添加自定义事件](#使用事件委托机制来为标签云子项添加自定义事件)]
 - [License](#license)
 ## 如何使用
 
