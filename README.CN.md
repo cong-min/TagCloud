@@ -133,15 +133,51 @@ TagCloud(container, texts, options);
 
 鼠标移除容器区域时是否保持继续滚动。默认为是 `true`，减速至初始滚动速度，然后继续随鼠标滚动。
 
+##### options.containerClass
+
+类型: `String`\
+默认值: `tagcloud`
+
+用于 tagcloud 容器的CSS样式 class。
+
+##### options.itemClass
+
+类型: `String`\
+默认值: `tagcloud--item`
+
+用于 tagcloud 标签项的CSS样式 class。
+
+##### options.useContainerInlineStyles
+
+Type: `Boolean`\
+Default: `true`
+
+使用正常视图的内联样式添加到 tagcloud 容器上；禁用此选项后，你必须自己添加CSS。
+
+##### options.useItemInlineStyles
+
+类型: `Boolean`\
+默认值: `true`
+
+使用正常视图的内联样式添加到 tagcloud 标签项上；禁用此选项后，你必须自己添加CSS。
+
 ## 实例方法
 
 ### tagcloud.update(texts)
 
 更新标签文本列表。
 
+### tagcloud.pause()
+
+暂停标签云动画。
+
+### tagcloud.resume()
+
+继续标签云动画。
+
 ### tagcloud.destroy()
 
-摧毁标签云实例
+摧毁标签云实例。
 
 ## 自定义事件
 
@@ -157,28 +193,6 @@ rootEl.addEventListener('click', function clickEventHandler(e) {
         // your code here
     }
 });
-```
-
-## 自定义样式
-
-### 给标签云子项添加自定义颜色
-
-以下是示例，标签云子项为绿色字体，移动到其上方变为红色
-
-先给 container（ 用于构造标签云的容器，本示例的容器叫 content ），添加一个额外的 class，如 diy
-
-```html
-<div class="content diy"></div>
-```
-
-```css
-.diy .tagcloud--item {
-    color: #67C23A;
-}
-
-.diy .tagcloud--item:hover {
-    color: #F56C6C;
-}
 ```
 
 ## License

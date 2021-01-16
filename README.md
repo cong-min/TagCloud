@@ -145,46 +145,19 @@ Default: `tagcloud--item`
 
 Css class to be used for tagcloud items. Default `tagcloud--item`
 
-##### options.useItemInlineStyles
-
-Type: `Boolean`\
-Default: `true`
-
-Add common inline styles to the items which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
-```css
-.tagcloud--item {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 1;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  will-change: transform, opacity, filter;
-  transform-origin: 50% 50%;
-  -webkit-transform-origin: 50% 50%;
-  -moz-transform-origin: 50% 50%;
-  -o-transform-origin: 50% 50%;
-  transform: translate3d(-50%, -50%, 0) scale(1);
-  transition: all 0.1s ease 0s
-}
-```
-
-
 ##### options.useContainerInlineStyles
 
 Type: `Boolean`\
 Default: `true`
 
 Add inline styles to the tagcloud container which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
-```css
-.tagcloud {
-    /* 100% width and proportional height */
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56%;
-}
-```
+
+##### options.useItemInlineStyles
+
+Type: `Boolean`\
+Default: `true`
+
+Add common inline styles to the items which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
 
 ## Instance
 
@@ -218,28 +191,6 @@ rootEl.addEventListener('click', function clickEventHandler(e) {
         // your code here
     }
 });
-```
-
-## Custom style
-
-### Add custom colors to TagCloud sub-item
-
-The following is an example, TagCloud sub-item is in green font, and when it is moved to it, it becomes red.
-
-First, add an extra class to the container (the container used to construct TagCloud, the container in this example is called content), such as diy.
-
-```html
-<div class="content diy"></div>
-```
-
-```css
-.diy .tagcloud--item {
-    color: #67C23A;
-}
-
-.diy .tagcloud--item:hover {
-    color: #F56C6C;
-}
 ```
 
 ## License
