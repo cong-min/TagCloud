@@ -52,7 +52,7 @@ class TagCloud {
     // speed value
     static _getMaxSpeed = (name) => ({ slow: 0.5, normal: 1, fast: 2 })[name] || 1;
 
-    static _getInitSpeed = (name) => ({ slow: 2, normal: 4, fast: 8 })[name] || 4;
+    static _getInitSpeed = (name) => ({ slow: 16, normal: 32, fast: 80 })[name] || 32;
 
     // event listener
     static _on(el, ev, handler, cap) {

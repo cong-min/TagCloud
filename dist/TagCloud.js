@@ -459,10 +459,10 @@
 
   TagCloud._getInitSpeed = function (name) {
     return {
-      slow: 2,
-      normal: 4,
-      fast: 8
-    }[name] || 4;
+      slow: 16,
+      normal: 32,
+      fast: 80
+    }[name] || 32;
   };
 
   var index = (function (els, texts, options) {
