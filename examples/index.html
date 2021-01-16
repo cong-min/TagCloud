@@ -84,6 +84,10 @@
         <li><a href="#" onclick="toCreate()">New TagCloud</a></li>
         <li><a href="#" onclick="toDestroy()">Destroy TagCloud</a></li>
     </ul>
+    <ul>
+        <li><a href="#" onclick="pause()">Pause Animation</a></li>
+        <li><a href="#" onclick="resume()">Resume Animation</a></li>
+    </ul>
     <div class="content">
         <!-- content -->
     </div>
@@ -124,6 +128,13 @@
             if (!last) return;
             last.destroy();
             otherTcs.pop();
+        }
+        // pause and resume tagcloud animation
+        function pause() {
+            [].concat(tc, otherTcs).forEach(function (e) { return e.pause() });
+        }
+        function resume() {
+            [].concat(tc, otherTcs).forEach(function (e) { return e.resume() });
         }
     </script>
 </body>
