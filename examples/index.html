@@ -88,6 +88,10 @@
         <li><a href="#" onclick="pause()">Pause Animation</a></li>
         <li><a href="#" onclick="resume()">Resume Animation</a></li>
     </ul>
+    <ul>
+        <li><a href="#" onclick="addClickEvent()">Add ClickEvent</a></li>
+        <li><a href="#" onclick="removeClickEvent()">Remove ClickEvent</a></li>
+    </ul>
     <div class="content">
         <!-- content -->
     </div>
@@ -135,6 +139,20 @@
         }
         function resume() {
             [].concat(tc, otherTcs).forEach(function (e) { return e.resume() });
+        }
+        // add and remove clickEvent
+        function clickEventHandler(e) {
+            if (e.target.className === 'tagcloud--item') {
+                window.open(`https://www.google.com/search?q=${e.target.innerText}`, '_blank');
+            }
+        }
+        function addClickEvent() {
+            var rootEl = document.querySelector('.content');
+            rootEl.addEventListener('click', clickEventHandler);
+        }
+        function removeClickEvent() {
+            var rootEl = document.querySelector('.content');
+            rootEl.removeEventListener('click', clickEventHandler);
         }
     </script>
 </body>
