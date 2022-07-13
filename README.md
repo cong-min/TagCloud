@@ -51,17 +51,33 @@ $ npm i -S TagCloud
 
 ```js
 const TagCloud = require('TagCloud');
-
 const container = '.tagcloud';
-const texts = [
+const options = {};
+
+// using plain text as tags
+TagCloud(container, [
     '3D', 'TagCloud', 'JavaScript',
     'CSS3', 'Animation', 'Interactive',
     'Mouse', 'Rolling', 'Sphere',
     '6KB', 'v2.x',
-];
-const options = {};
+], options);
+```
 
-TagCloud(container, texts, options);
+```js
+// or, using html with optional mutator function for customization
+// below example requires jQuery
+const randomColor = () => `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+TagCloud(container, [
+    ['Hello World!', function () {
+        $(this).css("color", randomColor);
+        setInterval(() => $(this).css("color", randomColor), 1000);
+    }],
+    'It works!',
+    '🎉🎉🎉',
+    '<a href="somepage" style="font-size: 4em">Click Me!</a>',
+    ['Google', function () { $(this).click(e => window.open('https://www.google.com')) }]
+], { radius: 360 });
 ```
 
 
@@ -92,7 +108,11 @@ Container for constructing a tagcloud.
 
 Type: `Array`
 
-List of tag text for init.
+List of tag text for init. HTML is also supported.
+
+An array can also be passed instead of each text or html entry.
+When used like this, a mutator function can be passed as the 2nd member of the array.
+Refer to the examples section for details.
 
 #### options
 

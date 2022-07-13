@@ -1,6 +1,6 @@
 /*!
  * TagCloud.js v2.2.0
- * Copyright (c) 2016-2021 @ Cong Min
+ * Copyright (c) 2016-2022 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
 (function (global, factory) {
@@ -8,6 +8,32 @@
   typeof define === 'function' && define.amd ? define(factory) :
   (global = global || self, global.TagCloud = factory());
 }(this, (function () { 'use strict';
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      enumerableOnly && (symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      })), keys.push.apply(keys, symbols);
+    }
+
+    return keys;
+  }
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = null != arguments[i] ? arguments[i] : {};
+      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+
+    return target;
+  }
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -28,6 +54,9 @@
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
+    Object.defineProperty(Constructor, "prototype", {
+      writable: false
+    });
     return Constructor;
   }
 
@@ -46,58 +75,6 @@
     return obj;
   }
 
-  function _extends() {
-    _extends = Object.assign || function (target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
-
-        for (var key in source) {
-          if (Object.prototype.hasOwnProperty.call(source, key)) {
-            target[key] = source[key];
-          }
-        }
-      }
-
-      return target;
-    };
-
-    return _extends.apply(this, arguments);
-  }
-
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      if (enumerableOnly) symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      });
-      keys.push.apply(keys, symbols);
-    }
-
-    return keys;
-  }
-
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {};
-
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key]);
-        });
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-      }
-    }
-
-    return target;
-  }
-
   /**
    * TagCloud.js (c) 2016-2019 @ Cong Min
    * MIT License - https://github.com/mcc108/TagCloud
@@ -106,7 +83,7 @@
     /* constructor */
     function TagCloud() {
       var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.body;
-      var texts = arguments.length > 1 ? arguments[1] : undefined;
+      var htmls = arguments.length > 1 ? arguments[1] : undefined;
       var options = arguments.length > 2 ? arguments[2] : undefined;
 
       _classCallCheck(this, TagCloud);
@@ -115,7 +92,7 @@
       if (!container || container.nodeType !== 1) return new Error('Incorrect element type'); // params
 
       self.$container = container;
-      self.texts = texts || [];
+      self.htmls = htmls || [];
       self.config = _objectSpread2(_objectSpread2({}, TagCloud._defaultConfig), options || {}); // calculate config
 
       self.radius = self.config.radius; // rolling radius
@@ -135,7 +112,7 @@
       self.paused = false; // keep state to pause the animation
       // create element
 
-      self._createElment(); // init
+      self._createElement(); // init
 
 
       self._init(); // set elements and instances
@@ -152,11 +129,11 @@
 
 
     _createClass(TagCloud, [{
-      key: "_createElment",
-
+      key: "_createElement",
+      value:
       /* instance property method */
       // create elment
-      value: function _createElment() {
+      function _createElement() {
         var self = this; // create container
 
         var $el = document.createElement('div');
@@ -166,26 +143,38 @@
           $el.style.position = 'relative';
           $el.style.width = "".concat(2 * self.radius, "px");
           $el.style.height = "".concat(2 * self.radius, "px");
-        } // create texts
+        } // create item elements
 
 
         self.items = [];
-        self.texts.forEach(function (text, index) {
-          var item = self._createTextItem(text, index);
+        self.htmls.forEach(function (htmlCfg, index) {
+          var cfg = TagCloud._parseTagCfg(htmlCfg);
+
+          var item = _objectSpread2({
+            el: self._createItemElement(cfg.html, index, cfg.mutator)
+          }, self._computePosition(index));
 
           $el.appendChild(item.el);
           self.items.push(item);
         });
         self.$container.appendChild($el);
         self.$el = $el;
-      } // create a text
-
+      }
     }, {
-      key: "_createTextItem",
-      value: function _createTextItem(text) {
+      key: "_createItemElement",
+      value: function _createItemElement(html) {
         var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+        var mutator = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
         var self = this;
-        var itemEl = document.createElement('span');
+        var temp = document.createElement('template');
+        temp.innerHTML = html.trim();
+        var itemEl = temp.content.firstChild;
+
+        if (itemEl.nodeType !== Node.ELEMENT_NODE) {
+          itemEl = document.createElement('span');
+          itemEl.innerText = temp.content.firstChild.textContent;
+        }
+
         itemEl.className = self.config.itemClass;
 
         if (self.config.useItemInlineStyles) {
@@ -208,10 +197,8 @@
           itemEl.style.transform = transform;
         }
 
-        itemEl.innerText = text;
-        return _objectSpread2({
-          el: itemEl
-        }, self._computePosition(index));
+        if (typeof mutator === 'function') mutator.call(itemEl);
+        return itemEl;
       } // calculate appropriate place
 
     }, {
@@ -219,11 +206,11 @@
       value: function _computePosition(index) {
         var random = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
         var self = this;
-        var textsLength = self.texts.length; // if random `true`, It means that a random appropriate place is generated, and the position will be independent of `index`
+        var htmlsLength = self.htmls.length; // if random `true`, It means that a random appropriate place is generated, and the position will be independent of `index`
 
-        if (random) index = Math.floor(Math.random() * (textsLength + 1));
-        var phi = Math.acos(-1 + (2 * index + 1) / textsLength);
-        var theta = Math.sqrt((textsLength + 1) * Math.PI) * phi;
+        if (random) index = Math.floor(Math.random() * (htmlsLength + 1));
+        var phi = Math.acos(-1 + (2 * index + 1) / htmlsLength);
+        var theta = Math.sqrt((htmlsLength + 1) * Math.PI) * phi;
         return {
           x: self.size * Math.cos(theta) * Math.sin(phi) / 2,
           y: self.size * Math.sin(theta) * Math.sin(phi) / 2,
@@ -353,34 +340,37 @@
 
     }, {
       key: "update",
-      value: function update(texts) {
+      value: function update(htmls) {
         var self = this; // params
 
-        self.texts = texts || []; // judging and processing items based on texts
+        self.htmls = htmls || []; // judging and processing items based on htmls
 
-        self.texts.forEach(function (text, index) {
+        self.htmls.forEach(function (htmlCfg, index) {
           var item = self.items[index];
 
+          var cfg = TagCloud._parseTagCfg(htmlCfg);
+
+          var itemEl = self._createItemElement(cfg.html, index, cfg.mutator);
+
           if (!item) {
-            // if not had, then create
-            item = self._createTextItem(text, index);
-
-            _extends(item, self._computePosition(index, true)); // random place
-
-
-            self.$el.appendChild(item.el);
+            item = _objectSpread2({
+              el: itemEl
+            }, self._computePosition(index, true));
             self.items.push(item);
-          } // if had, replace text
+          } else {
+            // replace element when exists
+            item.el.remove();
+            item.el = itemEl;
+          }
 
-
-          item.el.innerText = text;
+          self.$el.appendChild(item.el);
         }); // remove redundant self.items
 
-        var textsLength = self.texts.length;
+        var htmlsLength = self.htmls.length;
         var itemsLength = self.items.length;
 
-        if (textsLength < itemsLength) {
-          var removeList = self.items.splice(textsLength, itemsLength - textsLength);
+        if (htmlsLength < itemsLength) {
+          var removeList = self.items.splice(htmlsLength, itemsLength - htmlsLength);
           removeList.forEach(function (item) {
             self.$el.removeChild(item.el);
           });
@@ -416,8 +406,8 @@
       }
     }], [{
       key: "_on",
-      // event listener
-      value: function _on(el, ev, handler, cap) {
+      value: // event listener
+      function _on(el, ev, handler, cap) {
         if (el.addEventListener) {
           el.addEventListener(ev, handler, cap);
         } else if (el.attachEvent) {
@@ -425,6 +415,17 @@
         } else {
           el["on".concat(ev)] = handler;
         }
+      }
+    }, {
+      key: "_parseTagCfg",
+      value: function _parseTagCfg(cfg) {
+        return Array.isArray(cfg) ? {
+          html: cfg[0],
+          mutator: cfg[1]
+        } : {
+          html: cfg,
+          mutator: null
+        };
       }
     }]);
 
@@ -465,13 +466,13 @@
     }[name] || 32;
   };
 
-  var index = (function (els, texts, options) {
+  var index = (function (els, htmls, options) {
     if (typeof els === 'string') els = document.querySelectorAll(els);
     if (!els.forEach) els = [els];
     var instances = [];
     els.forEach(function (el) {
       if (el) {
-        instances.push(new TagCloud(el, texts, options));
+        instances.push(new TagCloud(el, htmls, options));
       }
     });
     return instances.length <= 1 ? instances[0] : instances;

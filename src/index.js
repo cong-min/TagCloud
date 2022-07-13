@@ -5,13 +5,13 @@
 
 class TagCloud {
     /* constructor */
-    constructor(container = document.body, texts, options) {
+    constructor(container = document.body, htmls, options) {
         const self = this;
         if (!container || container.nodeType !== 1) return new Error('Incorrect element type');
 
         // params
         self.$container = container;
-        self.texts = texts || [];
+        self.htmls = htmls || [];
         self.config = { ...TagCloud._defaultConfig, ...options || {} };
 
         // calculate config
@@ -25,7 +25,7 @@ class TagCloud {
         self.paused = false; // keep state to pause the animation
 
         // create element
-        self._createElment();
+        self._createElement();
         // init
         self._init();
         // set elements and instances
@@ -65,9 +65,15 @@ class TagCloud {
         }
     }
 
+    static _parseTagCfg(cfg) {
+        return Array.isArray(cfg)
+            ? { html: cfg[0], mutator: cfg[1] }
+            : { html: cfg, mutator: null };
+    }
+
     /* instance property method */
     // create elment
-    _createElment() {
+    _createElement() {
         const self = this;
 
         // create container
@@ -79,10 +85,14 @@ class TagCloud {
             $el.style.height = `${2 * self.radius}px`;
         }
 
-        // create texts
+        // create item elements
         self.items = [];
-        self.texts.forEach((text, index) => {
-            const item = self._createTextItem(text, index);
+        self.htmls.forEach((htmlCfg, index) => {
+            const cfg = TagCloud._parseTagCfg(htmlCfg);
+            const item = {
+                el: self._createItemElement(cfg.html, index, cfg.mutator),
+                ...self._computePosition(index) // distributed in appropriate place
+            };
             $el.appendChild(item.el);
             self.items.push(item);
         });
@@ -90,11 +100,18 @@ class TagCloud {
         self.$el = $el;
     }
 
-    // create a text
-    _createTextItem(text, index = 0) {
+    _createItemElement(html, index = 0, mutator = null) {
         const self = this;
-        const itemEl = document.createElement('span');
+        const temp = document.createElement('template');
+        temp.innerHTML = html.trim();
+
+        let itemEl = temp.content.firstChild;
+        if (itemEl.nodeType !== Node.ELEMENT_NODE) {
+            itemEl = document.createElement('span');
+            itemEl.innerText = temp.content.firstChild.textContent;
+        }
         itemEl.className = self.config.itemClass;
+
         if (self.config.useItemInlineStyles) {
             itemEl.style.willChange = 'transform, opacity, filter';
             itemEl.style.position = 'absolute';
@@ -114,21 +131,19 @@ class TagCloud {
             itemEl.style.OTransform = transform;
             itemEl.style.transform = transform;
         }
-        itemEl.innerText = text;
-        return {
-            el: itemEl,
-            ...self._computePosition(index), // distributed in appropriate place
-        };
+        if (typeof mutator === 'function') mutator.call(itemEl);
+
+        return itemEl;
     }
 
     // calculate appropriate place
     _computePosition(index, random = false) {
         const self = this;
-        const textsLength = self.texts.length;
+        const htmlsLength = self.htmls.length;
         // if random `true`, It means that a random appropriate place is generated, and the position will be independent of `index`
-        if (random) index = Math.floor(Math.random() * (textsLength + 1));
-        const phi = Math.acos(-1 + (2 * index + 1) / textsLength);
-        const theta = Math.sqrt((textsLength + 1) * Math.PI) * phi;
+        if (random) index = Math.floor(Math.random() * (htmlsLength + 1));
+        const phi = Math.acos(-1 + (2 * index + 1) / htmlsLength);
+        const theta = Math.sqrt((htmlsLength + 1) * Math.PI) * phi;
         return {
             x: (self.size * Math.cos(theta) * Math.sin(phi)) / 2,
             y: (self.size * Math.sin(theta) * Math.sin(phi)) / 2,
@@ -251,27 +266,32 @@ class TagCloud {
 
     /* export instance properties and methods */
     // update
-    update(texts) {
+    update(htmls) {
         const self = this;
         // params
-        self.texts = texts || [];
-        // judging and processing items based on texts
-        self.texts.forEach((text, index) => {
+        self.htmls = htmls || [];
+        // judging and processing items based on htmls
+        self.htmls.forEach((htmlCfg, index) => {
             let item = self.items[index];
-            if (!item) { // if not had, then create
-                item = self._createTextItem(text, index);
-                Object.assign(item, self._computePosition(index, true)); // random place
-                self.$el.appendChild(item.el);
+            const cfg = TagCloud._parseTagCfg(htmlCfg);
+            const itemEl = self._createItemElement(cfg.html, index, cfg.mutator);
+            if (!item) {
+                item = {
+                    el: itemEl,
+                    ...self._computePosition(index, true) // random place
+                };
                 self.items.push(item);
+            } else { // replace element when exists
+                item.el.remove();
+                item.el = itemEl;
             }
-            // if had, replace text
-            item.el.innerText = text;
+            self.$el.appendChild(item.el);
         });
         // remove redundant self.items
-        const textsLength = self.texts.length;
+        const htmlsLength = self.htmls.length;
         const itemsLength = self.items.length;
-        if (textsLength < itemsLength) {
-            const removeList = self.items.splice(textsLength, itemsLength - textsLength);
+        if (htmlsLength < itemsLength) {
+            const removeList = self.items.splice(htmlsLength, itemsLength - htmlsLength);
             removeList.forEach(item => {
                 self.$el.removeChild(item.el);
             });
@@ -304,13 +324,13 @@ class TagCloud {
     }
 }
 
-export default (els, texts, options) => {
+export default (els, htmls, options) => {
     if (typeof els === 'string') els = document.querySelectorAll(els);
     if (!els.forEach) els = [els];
     const instances = [];
     els.forEach(el => {
         if (el) {
-            instances.push(new TagCloud(el, texts, options));
+            instances.push(new TagCloud(el, htmls, options));
         }
     });
     return instances.length <= 1 ? instances[0] : instances;

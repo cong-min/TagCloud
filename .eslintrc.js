@@ -6,5 +6,6 @@ module.exports = {
         // [value] Boolean 表示这个全局变量是否允许被重新赋值
         window: false,
         document: false,
+        Node: false,
     },
 };
