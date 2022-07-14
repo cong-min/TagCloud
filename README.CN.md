@@ -53,17 +53,33 @@ $ npm i -S TagCloud
 
 ```js
 const TagCloud = require('TagCloud');
-
 const container = '.tagcloud';
-const texts = [
+const options = {};
+
+// 使用文本作为标签
+TagCloud(container, [
     '3D', 'TagCloud', 'JavaScript',
     'CSS3', 'Animation', 'Interactive',
     'Mouse', 'Rolling', 'Sphere',
     '6KB', 'v2.x',
-];
-const options = {};
+], options);
+```
 
-TagCloud(container, texts, options);
+```js
+// 或者可以使用HTML，和可选的mutator函数
+// 下面的示例依赖jQuery
+const randomColor = () => `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+TagCloud(container, [
+    ['Hello World!', function () {
+        $(this).css("color", randomColor);
+        setInterval(() => $(this).css("color", randomColor), 1000);
+    }],
+    'It works!',
+    '🎉🎉🎉',
+    '<a href="somepage" style="font-size: 4em">Click Me!</a>',
+    ['Google', function () { $(this).click(e => window.open('https://www.google.com')) }]
+], { radius: 360 });
 ```
 
 
@@ -94,7 +110,11 @@ TagCloud(container, texts, options);
 
 类型: `Array`
 
-初始化时的标签文本列表。
+初始化时的标签文本或HTML列表。
+
+Array也可以用来代替每条文本或者HTML。
+使用Array时，第一项为文本或HTML，第二项为可选的函数。
+使用方法参考上方示例。
 
 #### options
 
