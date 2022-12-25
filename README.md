@@ -79,7 +79,7 @@ TagCloud(container, texts, options);
 
 ### React
 
-There is a React Component by [Frank-Mayer](https://github.com/Frank-Mayer) on npm: [@frank-mayer/react-tag-cloud](https://www.npmjs.com/package/@frank-mayer/react-tag-cloud)
+There is a React Component by [Frank-Mayer](https://github.com/Frank-Mayer) on npm: [@frank-mayer/react-tag-cloud](https://github.com/Frank-Mayer/react-tag-cloud)
 
 
 ## Constructor
