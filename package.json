@@ -3,6 +3,7 @@
   "version": "2.2.0",
   "description": "3D TagCloud",
   "main": "dist/TagCloud.js",
+  "types": "dist/TagCloud.d.ts",
   "files": [
     "src",
     "dist"
