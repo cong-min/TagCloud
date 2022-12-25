@@ -1,5 +1,5 @@
 /*!
- * TagCloud.js v2.2.0
+ * TagCloud.js v2.3.0
  * Copyright (c) 2016-2022 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
@@ -9,51 +9,29 @@
   (global = global || self, global.TagCloud = factory());
 }(this, (function () { 'use strict';
 
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      enumerableOnly && (symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      })), keys.push.apply(keys, symbols);
-    }
-    return keys;
-  }
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = null != arguments[i] ? arguments[i] : {};
-      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-    return target;
-  }
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
     }
   }
+
   function _defineProperties(target, props) {
     for (var i = 0; i < props.length; i++) {
       var descriptor = props[i];
       descriptor.enumerable = descriptor.enumerable || false;
       descriptor.configurable = true;
       if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
+      Object.defineProperty(target, descriptor.key, descriptor);
     }
   }
+
   function _createClass(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
     if (staticProps) _defineProperties(Constructor, staticProps);
-    Object.defineProperty(Constructor, "prototype", {
-      writable: false
-    });
     return Constructor;
   }
+
   function _defineProperty(obj, key, value) {
-    key = _toPropertyKey(key);
     if (key in obj) {
       Object.defineProperty(obj, key, {
         value: value,
@@ -64,35 +42,60 @@
     } else {
       obj[key] = value;
     }
+
     return obj;
   }
+
   function _extends() {
-    _extends = Object.assign ? Object.assign.bind() : function (target) {
+    _extends = Object.assign || function (target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i];
+
         for (var key in source) {
           if (Object.prototype.hasOwnProperty.call(source, key)) {
             target[key] = source[key];
           }
         }
       }
+
       return target;
     };
+
     return _extends.apply(this, arguments);
   }
-  function _toPrimitive(input, hint) {
-    if (typeof input !== "object" || input === null) return input;
-    var prim = input[Symbol.toPrimitive];
-    if (prim !== undefined) {
-      var res = prim.call(input, hint || "default");
-      if (typeof res !== "object") return res;
-      throw new TypeError("@@toPrimitive must return a primitive value.");
+
+  function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+
+    if (Object.getOwnPropertySymbols) {
+      var symbols = Object.getOwnPropertySymbols(object);
+      if (enumerableOnly) symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+      keys.push.apply(keys, symbols);
     }
-    return (hint === "string" ? String : Number)(input);
+
+    return keys;
   }
-  function _toPropertyKey(arg) {
-    var key = _toPrimitive(arg, "string");
-    return typeof key === "symbol" ? key : String(key);
+
+  function _objectSpread2(target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i] != null ? arguments[i] : {};
+
+      if (i % 2) {
+        ownKeys(Object(source), true).forEach(function (key) {
+          _defineProperty(target, key, source[key]);
+        });
+      } else if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+      } else {
+        ownKeys(Object(source)).forEach(function (key) {
+          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+      }
+    }
+
+    return target;
   }
 
   /**
@@ -105,67 +108,78 @@
       var container = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document.body;
       var texts = arguments.length > 1 ? arguments[1] : undefined;
       var options = arguments.length > 2 ? arguments[2] : undefined;
-      _classCallCheck(this, TagCloud);
-      var self = this;
-      if (!container || container.nodeType !== 1) return new Error('Incorrect element type');
 
-      // params
+      _classCallCheck(this, TagCloud);
+
+      var self = this;
+      if (!container || container.nodeType !== 1) return new Error('Incorrect element type'); // params
+
       self.$container = container;
       self.texts = texts || [];
-      self.config = _objectSpread2(_objectSpread2({}, TagCloud._defaultConfig), options || {});
+      self.config = _objectSpread2(_objectSpread2({}, TagCloud._defaultConfig), options || {}); // calculate config
 
-      // calculate config
       self.radius = self.config.radius; // rolling radius
-      self.depth = 2 * self.radius; // rolling depth
-      self.size = 1.5 * self.radius; // rolling area size with mouse
-      self.maxSpeed = TagCloud._getMaxSpeed(self.config.maxSpeed); // rolling max speed
-      self.initSpeed = TagCloud._getInitSpeed(self.config.initSpeed); // rolling init speed
-      self.direction = self.config.direction; // rolling init direction
-      self.keep = self.config.keep; // whether to keep rolling after mouse out area
-      self.paused = false; // keep state to pause the animation
 
+      self.depth = 2 * self.radius; // rolling depth
+
+      self.size = 1.5 * self.radius; // rolling area size with mouse
+
+      self.maxSpeed = TagCloud._getMaxSpeed(self.config.maxSpeed); // rolling max speed
+
+      self.initSpeed = TagCloud._getInitSpeed(self.config.initSpeed); // rolling init speed
+
+      self.direction = self.config.direction; // rolling init direction
+
+      self.keep = self.config.keep; // whether to keep rolling after mouse out area
+
+      self.paused = false; // keep state to pause the animation
       // create element
-      self._createElment();
-      // init
-      self._init();
-      // set elements and instances
+
+      self._createElment(); // init
+
+
+      self._init(); // set elements and instances
+
+
       TagCloud.list.push({
         el: self.$el,
         container: container,
         instance: self
       });
     }
-
     /* static method */
     // all TagCloud list
+
+
     _createClass(TagCloud, [{
       key: "_createElment",
-      value: /* instance property method */
-      // create elment
-      function _createElment() {
-        var self = this;
 
-        // create container
+      /* instance property method */
+      // create elment
+      value: function _createElment() {
+        var self = this; // create container
+
         var $el = document.createElement('div');
         $el.className = self.config.containerClass;
+
         if (self.config.useContainerInlineStyles) {
           $el.style.position = 'relative';
           $el.style.width = "".concat(2 * self.radius, "px");
           $el.style.height = "".concat(2 * self.radius, "px");
-        }
+        } // create texts
 
-        // create texts
+
         self.items = [];
         self.texts.forEach(function (text, index) {
           var item = self._createTextItem(text, index);
+
           $el.appendChild(item.el);
           self.items.push(item);
         });
         self.$container.appendChild($el);
         self.$el = $el;
-      }
+      } // create a text
 
-      // create a text
     }, {
       key: "_createTextItem",
       value: function _createTextItem(text) {
@@ -173,6 +187,7 @@
         var self = this;
         var itemEl = document.createElement('span');
         itemEl.className = self.config.itemClass;
+
         if (self.config.useItemInlineStyles) {
           itemEl.style.willChange = 'transform, opacity, filter';
           itemEl.style.position = 'absolute';
@@ -192,20 +207,20 @@
           itemEl.style.OTransform = transform;
           itemEl.style.transform = transform;
         }
+
         itemEl.innerText = text;
         return _objectSpread2({
           el: itemEl
         }, self._computePosition(index));
-      }
+      } // calculate appropriate place
 
-      // calculate appropriate place
     }, {
       key: "_computePosition",
       value: function _computePosition(index) {
         var random = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
         var self = this;
-        var textsLength = self.texts.length;
-        // if random `true`, It means that a random appropriate place is generated, and the position will be independent of `index`
+        var textsLength = self.texts.length; // if random `true`, It means that a random appropriate place is generated, and the position will be independent of `index`
+
         if (random) index = Math.floor(Math.random() * (textsLength + 1));
         var phi = Math.acos(-1 + (2 * index + 1) / textsLength);
         var theta = Math.sqrt((textsLength + 1) * Math.PI) * phi;
@@ -223,22 +238,25 @@
         } || function (callback, element) {
           window.setTimeout(callback, 1000 / 60);
         })();
+
         var start = new Date().getTime();
         var handle = {};
+
         function loop() {
           handle.value = requestAnimFrame(loop);
           var current = new Date().getTime(),
-            delta = current - start;
+              delta = current - start;
+
           if (delta >= delay) {
             fn.call();
             start = new Date().getTime();
           }
         }
+
         handle.value = requestAnimFrame(loop);
         return handle;
-      }
+      } // init
 
-      // init
     }, {
       key: "_init",
       value: function _init() {
@@ -246,57 +264,65 @@
         self.active = false; // whether the mouse is activated
 
         self.mouseX0 = self.initSpeed * Math.sin(self.direction * (Math.PI / 180)); // init distance between the mouse and rolling center x axis
+
         self.mouseY0 = -self.initSpeed * Math.cos(self.direction * (Math.PI / 180)); // init distance between the mouse and rolling center y axis
 
         self.mouseX = self.mouseX0; // current distance between the mouse and rolling center x axis
+
         self.mouseY = self.mouseY0; // current distance between the mouse and rolling center y axis
 
         var isTouchDevice = window.matchMedia('(hover: hover)');
+
         if (!isTouchDevice || isTouchDevice.matches) {
           // mouseover
           TagCloud._on(self.$el, 'mouseover', function () {
             self.active = true;
-          });
-          // mouseout
+          }); // mouseout
+
+
           TagCloud._on(self.$el, 'mouseout', function () {
             self.active = false;
-          });
-          // mousemove
+          }); // mousemove
+
+
           TagCloud._on(self.keep ? window : self.$el, 'mousemove', function (ev) {
             ev = ev || window.event;
             var rect = self.$el.getBoundingClientRect();
             self.mouseX = (ev.clientX - (rect.left + rect.width / 2)) / 5;
             self.mouseY = (ev.clientY - (rect.top + rect.height / 2)) / 5;
           });
-        }
+        } // update state regularly
 
-        // update state regularly
+
         self._next(); // init update state
+
+
         self.interval = self._requestInterval(function () {
           self._next.call(self);
         }, 10);
-      }
+      } // calculate the next state
 
-      // calculate the next state
     }, {
       key: "_next",
       value: function _next() {
         var self = this;
+
         if (self.paused) {
           return;
-        }
+        } // if keep `false`, pause rolling after moving mouse out area
 
-        // if keep `false`, pause rolling after moving mouse out area
+
         if (!self.keep && !self.active) {
           self.mouseX = Math.abs(self.mouseX - self.mouseX0) < 1 ? self.mouseX0 : (self.mouseX + self.mouseX0) / 2; // reset distance between the mouse and rolling center x axis
+
           self.mouseY = Math.abs(self.mouseY - self.mouseY0) < 1 ? self.mouseY0 : (self.mouseY + self.mouseY0) / 2; // reset distance between the mouse and rolling center y axis
         }
 
         var a = -(Math.min(Math.max(-self.mouseY, -self.size), self.size) / self.radius) * self.maxSpeed;
         var b = Math.min(Math.max(-self.mouseX, -self.size), self.size) / self.radius * self.maxSpeed;
         if (Math.abs(a) <= 0.01 && Math.abs(b) <= 0.01) return; // pause
-
         // calculate offset
+
         var l = Math.PI / 180;
         var sc = [Math.sin(a * l), Math.cos(a * l), Math.sin(b * l), Math.cos(b * l)];
         self.items.forEach(function (item) {
@@ -326,51 +352,56 @@
           itemEl.style.opacity = alpha;
         });
       }
-
       /* export instance properties and methods */
       // update
+
     }, {
       key: "update",
       value: function update(texts) {
-        var self = this;
-        // params
-        self.texts = texts || [];
-        // judging and processing items based on texts
+        var self = this; // params
+
+        self.texts = texts || []; // judging and processing items based on texts
+
         self.texts.forEach(function (text, index) {
           var item = self.items[index];
+
           if (!item) {
             // if not had, then create
             item = self._createTextItem(text, index);
+
             _extends(item, self._computePosition(index, true)); // random place
+
+
             self.$el.appendChild(item.el);
             self.items.push(item);
-          }
-          // if had, replace text
+          } // if had, replace text
+
+
           item.el.innerText = text;
-        });
-        // remove redundant self.items
+        }); // remove redundant self.items
+
         var textsLength = self.texts.length;
         var itemsLength = self.items.length;
+
         if (textsLength < itemsLength) {
           var removeList = self.items.splice(textsLength, itemsLength - textsLength);
           removeList.forEach(function (item) {
             self.$el.removeChild(item.el);
           });
         }
-      }
+      } // destroy
 
-      // destroy
     }, {
       key: "destroy",
       value: function destroy() {
         var self = this;
-        self.interval = null;
-        // clear in TagCloud.list
+        self.interval = null; // clear in TagCloud.list
+
         var index = TagCloud.list.findIndex(function (e) {
           return e.el === self.$el;
         });
-        if (index !== -1) TagCloud.list.splice(index, 1);
-        // clear element
+        if (index !== -1) TagCloud.list.splice(index, 1); // clear element
+
         if (self.$container && self.$el) {
           self.$container.removeChild(self.$el);
         }
@@ -389,9 +420,8 @@
       }
     }], [{
       key: "_on",
-      value:
       // event listener
-      function _on(el, ev, handler, cap) {
+      value: function _on(el, ev, handler, cap) {
         if (el.addEventListener) {
           el.addEventListener(ev, handler, cap);
         } else if (el.attachEvent) {
@@ -401,8 +431,10 @@
         }
       }
     }]);
+
     return TagCloud;
   }();
+
   TagCloud.list = [];
   TagCloud._defaultConfig = {
     radius: 100,
@@ -420,6 +452,7 @@
     containerClass: 'tagcloud',
     itemClass: 'tagcloud--item'
   };
+
   TagCloud._getMaxSpeed = function (name) {
     return {
       slow: 0.5,
@@ -427,6 +460,7 @@
       fast: 2
     }[name] || 1;
   };
+
   TagCloud._getInitSpeed = function (name) {
     return {
       slow: 16,
@@ -434,6 +468,7 @@
       fast: 80
     }[name] || 32;
   };
+
   var index = (function (els, texts, options) {
     if (typeof els === 'string') els = document.querySelectorAll(els);
     if (!els.forEach) els = [els];

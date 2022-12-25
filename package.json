@@ -1,6 +1,6 @@
 {
   "name": "TagCloud",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "3D TagCloud",
   "main": "dist/TagCloud.js",
   "types": "dist/TagCloud.d.ts",
