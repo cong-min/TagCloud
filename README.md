@@ -19,6 +19,7 @@
 - [Usage](#usage)
   - [npm](#npm)
   - [Browser](#browser)
+  - [React](#react)
 - [Constructor](#constructor)
   - [TagCloud(container, texts, options)](#tagcloudcontainer-texts-options)
     - [container](#container)
@@ -75,6 +76,11 @@ TagCloud(container, texts, options);
 ```js
 TagCloud(container, texts, options);
 ```
+
+### React
+
+There is a React Component by [Frank-Mayer](https://github.com/Frank-Mayer) on npm: [@frank-mayer/react-tag-cloud](https://www.npmjs.com/package/@frank-mayer/react-tag-cloud)
+
 
 ## Constructor
 
