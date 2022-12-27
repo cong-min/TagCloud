@@ -18,7 +18,19 @@ export interface TagCloudOptions {
 }
 
 export default function (
-    container: string | Element | [Element],
+    container: string,
+    texts: Array<string>,
+    options?: TagCloudOptions
+): TagCloud;
+
+export default function (
+    container: Element,
+    texts: Array<string>,
+    options?: TagCloudOptions
+): TagCloud;
+
+export default function (
+    container: [Element],
     texts: Array<string>,
     options?: TagCloudOptions
 ): TagCloud;
