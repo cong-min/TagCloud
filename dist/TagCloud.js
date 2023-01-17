@@ -208,7 +208,11 @@
           itemEl.style.transform = transform;
         }
 
-        itemEl.innerText = text;
+        if(self.config.useHTML){
+          itemEl.innerHTML = text;
+        }else{
+          itemEl.innerText = text;
+        }
         return _objectSpread2({
           el: itemEl
         }, self._computePosition(index));
@@ -376,8 +380,11 @@
             self.items.push(item);
           } // if had, replace text
 
-
-          item.el.innerText = text;
+          if(self.config.useHTML){
+            item.el.innerHTML = text;
+          }else{
+            item.el.innerText = text;
+          }
         }); // remove redundant self.items
 
         var textsLength = self.texts.length;
@@ -450,7 +457,8 @@
     useContainerInlineStyles: true,
     useItemInlineStyles: true,
     containerClass: 'tagcloud',
-    itemClass: 'tagcloud--item'
+    itemClass: 'tagcloud--item',
+    useHTML: false, //if wanted to add html tags inside the ball
   };
 
   TagCloud._getMaxSpeed = function (name) {
