@@ -170,7 +170,7 @@ Default: `true`
 
 Add common inline styles to the items which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
 
-##### options.optionsuseHTML
+##### options.useHTML
 
 Type: `Boolean`\
 Default: `false`
