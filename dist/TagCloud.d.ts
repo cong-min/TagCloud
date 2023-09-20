@@ -15,6 +15,7 @@ export interface TagCloudOptions {
     itemClass?: string;
     useContainerInlineStyles?: boolean;
     useItemInlineStyles?: boolean;
+    useHTML?: boolean;
 }
 
 export default function (

@@ -34,6 +34,7 @@
       - [options.itemClass](#optionsitemClass)
       - [options.useContainerInlineStyles](#optionsuseContainerInlineStyles)
       - [options.useItemInlineStyles](#optionsuseItemInlineStyles)
+      - [options.useHTML](#optionsuseHTML)
 - [Instance](#instance)
   - [tagcloud.update(texts)](#tagcloudupdatetexts)
   - [tagcloud.pause()](#tagcloudpause)
@@ -168,6 +169,14 @@ Type: `Boolean`\
 Default: `true`
 
 Add common inline styles to the items which are required for correct view. When this option is disabled you have to add the css by yourself. Default `true`
+
+##### options.useHTML
+
+Type: `Boolean`\
+Default: `false`
+
+Add html tags with text.Using this will help you add style on elements. Default `false`
+
 
 ## Instance
 
