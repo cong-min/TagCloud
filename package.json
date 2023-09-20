@@ -1,6 +1,6 @@
 {
   "name": "TagCloud",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "description": "3D TagCloud",
   "main": "dist/TagCloud.js",
   "types": "dist/TagCloud.d.ts",
@@ -13,16 +13,16 @@
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "lint": "eslint --fix \"**/*.js\"",
-    "outdated": "tnpm outdated"
+    "outdated": "npm outdated"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/mcc108/TagCloud.git"
+    "url": "git+ssh://git@github.com/cong-min/TagCloud.git"
   },
   "author": "Cong Min",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mcc108/TagCloud/issues"
+    "url": "https://github.com/cong-min/TagCloud/issues"
   },
   "dependencies": {},
   "devDependencies": {
