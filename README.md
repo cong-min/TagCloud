@@ -142,6 +142,13 @@ Default: `true`
 
 Whether to keep rolling after mouse out area. Default `true` (decelerate to rolling init speed, and keep rolling with mouse).
 
+##### options.reverseDirection
+
+Type: `Boolean`\
+Default: `false`
+
+Whether to reverse the direction when the mouse controls the direction. Default `false`.
+
 ##### options.containerClass
 
 Type: `String`\
