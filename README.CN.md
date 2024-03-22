@@ -137,6 +137,13 @@ TagCloud(container, texts, options);
 
 鼠标移除容器区域时是否保持继续滚动。默认为是 `true`，减速至初始滚动速度，然后继续随鼠标滚动。
 
+##### options.reverseDirection
+
+类型: `Boolean`\
+默认值: `false`
+
+当鼠标控制方向时，是否要逆转方向。
+
 ##### options.containerClass
 
 类型: `String`\

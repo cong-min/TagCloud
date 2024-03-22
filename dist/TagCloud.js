@@ -1,6 +1,6 @@
 /*!
- * TagCloud.js v2.4.0
- * Copyright (c) 2016-2023 @ Cong Min
+ * TagCloud.js v2.5.0
+ * Copyright (c) 2016-2024 @ Cong Min
  * MIT License - https://github.com/mcc108/TagCloud
  */
 (function (global, factory) {
@@ -298,6 +298,12 @@
 
         var a = -(Math.min(Math.max(-self.mouseY, -self.size), self.size) / self.radius) * self.maxSpeed;
         var b = Math.min(Math.max(-self.mouseX, -self.size), self.size) / self.radius * self.maxSpeed;
+
+        // inverse direction if enabled
+        if (self.config.reverseDirection) {
+          a = -a;
+          b = -b;
+        }
         if (Math.abs(a) <= 0.01 && Math.abs(b) <= 0.01) return; // pause
 
         // calculate offset
@@ -424,6 +430,7 @@
     // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
     keep: true,
     // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+    reverseDirection: false,
     useContainerInlineStyles: true,
     useItemInlineStyles: true,
     containerClass: 'tagcloud',
