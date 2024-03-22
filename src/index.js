@@ -43,6 +43,7 @@ class TagCloud {
         initSpeed: 'normal', // rolling init speed, optional: `slow`, `normal`(default), `fast`
         direction: 135, // rolling init direction, unit clockwise `deg`, optional: `0`(top) , `90`(left), `135`(right-bottom)(default)...
         keep: true, // whether to keep rolling after mouse out area, optional: `false`, `true`(default)(decelerate to rolling init speed, and keep rolling with mouse)
+        reverseDirection: false,
         useContainerInlineStyles: true,
         useItemInlineStyles: true,
         containerClass: 'tagcloud',
@@ -210,11 +211,17 @@ class TagCloud {
                 ? self.mouseY0 : (self.mouseY + self.mouseY0) / 2; // reset distance between the mouse and rolling center y axis
         }
 
-        const a = -(Math.min(Math.max(-self.mouseY, -self.size), self.size) / self.radius)
+        let a = -(Math.min(Math.max(-self.mouseY, -self.size), self.size) / self.radius)
             * self.maxSpeed;
-        const b = (Math.min(Math.max(-self.mouseX, -self.size), self.size) / self.radius)
+        let b = (Math.min(Math.max(-self.mouseX, -self.size), self.size) / self.radius)
             * self.maxSpeed;
 
+        // inverse direction if enabled
+        if (self.config.reverseDirection) {
+            a = -a;
+            b = -b;
+        }
+        
         if (Math.abs(a) <= 0.01 && Math.abs(b) <= 0.01) return; // pause
 
         // calculate offset
